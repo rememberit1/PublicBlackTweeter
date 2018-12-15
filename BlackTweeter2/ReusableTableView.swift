@@ -15,7 +15,6 @@ import CollieGallery
 class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, LatestCellDelegator, CustomCellUpdater, CollieGalleryDelegate, UIGestureRecognizerDelegate, EraseCellDelegate
 {
 
-    
 
     
     public static var profTableviewScrolled: Bool = false
@@ -92,6 +91,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         
         cell.cellLatestTweet.dataDetectorTypes = UIDataDetectorTypes.link
         cell.cellLatestTweet.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: AppConstants.tweeterDarkGreen]
+        
         
         cell.update(data!)
         

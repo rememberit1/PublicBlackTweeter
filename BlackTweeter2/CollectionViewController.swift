@@ -43,6 +43,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     let infiniteCount = 6
     var timer: Timer?
     
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var ref : DatabaseReference!
     var versionRef: DatabaseReference!

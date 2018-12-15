@@ -53,19 +53,19 @@
                                 <rect key="frame" x="0.0" y="44.5" width="365" height="25"/>
                                 <subviews>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJA-3h-YQY">
-                                        <rect key="frame" x="0.0" y="0.0" width="68.5" height="25"/>
+                                        <rect key="frame" x="4" y="0.0" width="68.5" height="25"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" red="0.24939853003384094" green="0.16310585597796787" blue="0.081510339246140859" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJs-eG-dxO">
-                                        <rect key="frame" x="106" y="0.0" width="67" height="25"/>
+                                        <rect key="frame" x="108.5" y="0.0" width="67" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33656548600000002" green="0.22594173749999999" blue="0.1102077363" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="•2hr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2d7-mg-9VD">
-                                        <rect key="frame" x="232.5" y="0.0" width="24.5" height="25"/>
+                                        <rect key="frame" x="234" y="0.0" width="24.5" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33656548600000002" green="0.22594173749999999" blue="0.1102077363" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -83,6 +83,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="BN4-Hr-US5"/>
+                                    <constraint firstItem="NJA-3h-YQY" firstAttribute="leading" secondItem="bf9-Il-fF3" secondAttribute="leading" constant="4" id="Els-ZX-yyC"/>
                                 </constraints>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qA-IS-Ldj" customClass="AttrTextView" customModule="BlackTweeter2" customModuleProvider="target">
@@ -122,7 +123,7 @@
                                                     </label>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="89z-jT-g6i" firstAttribute="leading" secondItem="hWD-0c-6nN" secondAttribute="leading" constant="12" id="37U-J1-dL8"/>
+                                                    <constraint firstItem="89z-jT-g6i" firstAttribute="leading" secondItem="hWD-0c-6nN" secondAttribute="leading" constant="16" id="37U-J1-dL8"/>
                                                     <constraint firstAttribute="height" constant="25" id="w8s-cK-Pm5"/>
                                                 </constraints>
                                             </stackView>
@@ -224,14 +225,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="e2B-IZ-Zf0">
                                 <rect key="frame" x="0.0" y="1017.5" width="365" height="56.5"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Website Title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qmv-0U-h18" customClass="AttrTextView" customModule="BlackTweeter2" customModuleProvider="target">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text=" " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qmv-0U-h18" customClass="AttrTextView" customModule="BlackTweeter2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="365" height="36"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="0.0" green="0.51764705879999995" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="This is the canonical" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PyH-yZ-yW3" userLabel="Canonical Title" customClass="AttrTextView" customModule="BlackTweeter2" customModuleProvider="target">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text=" " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="PyH-yZ-yW3" userLabel="Canonical Title" customClass="AttrTextView" customModule="BlackTweeter2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="26" width="365" height="30.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="0.0" green="0.51764705879999995" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>

@@ -118,6 +118,13 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
             
         }
         
+        let mySuccess: (JSON, String, String) -> Void = { someJson, someString, anotherString in
+           
+            print("some array: ", someJson)
+            print("some array: ", someString)
+            print("some array: ", anotherString)
+        }
+        
         let viewDidLoadDispatch = DispatchGroup()
         
         viewDidLoadDispatch.enter()
@@ -129,6 +136,10 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
             }, failure: failureHandler)
             
         }else {
+
+            
+           // swifter?.getBlockedUsers(includeEntities: false, skipStatus: true, cursor: "", success: mySuccess as? Swifter.CursorSuccessHandler, failure: failureHandler)
+            //swifter?.getMutedUsers(cursor: nil, includeEntities: true, skipStatus: false, success: mySuccess as! Swifter.CursorSuccessHandler, failure: failureHandler)
             swifter?.showUser(UserTag.screenName(username!), includeEntities: true, success: { json in
                 //  print("json.array ", json)
                 

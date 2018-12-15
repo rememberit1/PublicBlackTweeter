@@ -10,6 +10,7 @@ import Foundation
 
 class BaseViewController: UIViewController {
     
+    static var loadingTimer: Timer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,9 @@ class BaseViewController: UIViewController {
 //        DispatchQueue.main.asyncAfter(deadline: delay, execute: {
 //            GiFHUD.dismiss()
 //        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+            self.dismissLoadingGIF()
+        })
     }
     
     func dismissLoadingGIF (){

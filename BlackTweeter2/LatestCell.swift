@@ -261,6 +261,19 @@ class LatestCell: UITableViewCell {
             RTVideoSuperView.clipsToBounds = true
             
             self.swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY, oauthToken: OAUTH_TOKEN, oauthTokenSecret: OAUTH_TOKEN_SECRET)
+            
+//            self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+//            let mySuccess: (JSON, String?, String?) -> Void = { someJson, someString, anotherString in print("some array: ", someJson.array)
+//                print("some array: ", someString as Any)
+//                print("some array: ", anotherString as Any)}
+//
+//            let failureHandler: (Error) -> Void = { error in
+//                print("Was unable to get block 😕 because: \(error.localizedDescription)")
+//                self.makeToast("Was unable to like 😕 because: \(error.localizedDescription)", duration: 2.0, position: .center, style: self.style)
+//
+//            }
+//
+//            self.swifter.getBlockedUsers(includeEntities: true, skipStatus: false, cursor: "", success: mySuccess as? Swifter.CursorSuccessHandler, failure: failureHandler)
 
             //self.getGifButton?.isHidden = false
             RetweetedByLabel.isHidden = true
@@ -349,9 +362,13 @@ class LatestCell: UITableViewCell {
                 self.cellTimestamp.text = ""
             }
             
-            
             if let profileImageUrl = latestStatus?.profileImageUrl {
-                profileImageView.sd_setImage(with: URL(string: profileImageUrl), placeholderImage: UIImage(named: "default_profile_.png"))
+                
+//                profileImageView!.sd_setImage(with: URL(string: profileImageUrl), completed: {(image, error, CacheType, URL) in
+//                    print("Image with url \(self.latestStatus?.profileImageUrl) is loaded")
+//                })
+                //profileImageView.sd_setImage(with: URL(string: profileImageUrl), placeholderImage: UIImage(named: "default_profile_.png"))
+                profileImageView.kf.setImage(with: URL(string: profileImageUrl), placeholder: UIImage(named: "default_profile_.png"))
             }else{
                 profileImageView.image = UIImage(named: "default_profile_.png")
             }
@@ -514,6 +531,7 @@ class LatestCell: UITableViewCell {
                     }
                 }
                 
+                //self.setImage(image: <#T##String?#>)
                 self.setImage(images: images)
             } else {
                 self.setImage(image: self.result[.image] as? String)
@@ -607,6 +625,9 @@ class LatestCell: UITableViewCell {
     private func setImage(images: [InputSource]?) {
         
         if let images = images {
+            
+           // let noImages: [InputSource] = []
+            self.slideshow?.setImageInputs([])
             self.slideshow?.setImageInputs(images)
             if(latestStatus?.retweetedBy != nil){
                 RetweetedByLabel.isHidden = false
@@ -625,6 +646,7 @@ class LatestCell: UITableViewCell {
         statusImage2.image = nil
         statusImage3.image = nil
         
+        
         RTstatusImage0.image = nil
         RTstatusImage1.image = nil
         RTstatusImage2.image = nil
@@ -632,10 +654,13 @@ class LatestCell: UITableViewCell {
         
         pictures.removeAll()
         
-       // var images: [InputSource] = []
-        self.slideshow?.setImageInputs([])
-        self.previewCanonicalUrl?.text = nil
-        self.previewTitle?.text = nil
+        //self.slideshow?.setImageInputs([])
+        
+//        profileImageView.image = nil
+//        self.slideshow = nil
+        
+//        self.previewCanonicalUrl?.text = nil
+//        self.previewTitle?.text = nil
     }
     
     //https://stackoverflow.com/questions/46901059/uitableviewcell-subclass-wrong-image-in-cell-or-old-image-bug
@@ -699,8 +724,8 @@ class LatestCell: UITableViewCell {
             
         }
         if (latestStatus?.statusImageUrl1 != nil){
-            let fileUrl = URL(string: (latestStatus?.statusImageUrl1)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
+            //let fileUrl = URL(string: (latestStatus?.statusImageUrl1)!)
+            let resource = ImageResource(downloadURL: URL(string: (latestStatus?.statusImageUrl1)!)!)
             statusImage1.kf.setImage(with: resource)
             let picture = CollieGalleryPicture(url: (latestStatus?.statusImageUrl1)!)
             pictures.append(picture)
@@ -785,8 +810,10 @@ class LatestCell: UITableViewCell {
         self.cellLatestTweet.text = self.cellLatestTweet.text.replacingOccurrences(of: "&amp;", with: "&")
         self.RTText.text = self.RTText.text.replacingOccurrences(of: "&amp;", with: "&")
         
-        getRegularWebsite()
-        setUpSlideshow()
+        if (latestStatus?.regularUrl != nil){
+            getRegularWebsite()
+            setUpSlideshow()
+        }
     }
     
     override func prepareForReuse() {
@@ -951,7 +978,6 @@ class LatestCell: UITableViewCell {
         }
         if (self.likeOutside == false){
             self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
-            //blockSwifter?.favoriteTweet(forID: printTweetId!, includeEntities: false, tweetMode: TweetMode.default, success: { json in
             swifter.favoriteTweet(forID: printTweetId!, includeEntities: false, tweetMode: TweetMode.default, success: { json in
                 print ("now liking")
                 
@@ -1023,7 +1049,7 @@ class LatestCell: UITableViewCell {
         alert.addAction(UIAlertAction(title: "Block User", style: .default, handler: {action in
             print("block button clicked")
             self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
-            self.blockSwifter?.blockUser(UserTag.screenName(self.printUsername!), includeEntities: true, skipStatus: false, success: {json in
+            self.blockSwifter?.blockUser(UserTag.id(self.printUserId!), includeEntities: true, skipStatus: false, success: {json in
                 print("blocked user")
 //                if (self.parentViewController is CollectionViewController){
 //                    print("this is in collectionview controller")
@@ -1040,7 +1066,7 @@ class LatestCell: UITableViewCell {
         alert.addAction(UIAlertAction(title: "Flag/Report Content", style: .default, handler: {action in
             print("report button clicked")
             self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
-            self.blockSwifter?.reportSpam(for: UserTag.screenName(self.printUsername!), success: {json in
+            self.blockSwifter?.reportSpam(for: UserTag.id(self.printUserId!), success: {json in
                 print("reported user")
                 self.eraseCellDelegate?.blockButtonTapped(cell: self)
                 //self.makeToast("Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", duration: 6.0, position: .center, style: self.style)
@@ -1175,12 +1201,13 @@ class LatestCell: UITableViewCell {
             print("Was unable to delete 😕 because of an error: \(error.localizedDescription)")
             self.alert(title: "Damn son...", message: "Was unable to delete 😕 because of an error: \(error.localizedDescription)", uivc: self.parentViewController!)
         }
-        
-        swifter.destroyTweet(forID: printTweetId!, trimUser: false, tweetMode: TweetMode.extended, success: { json in
-            // print(json)
-            self.parentViewController?.toastMessage("Poof! Gone")
-            self.reloadTalbeveiwInsideOfCell()
-            self.alpha = 0.1
+        self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+        blockSwifter?.destroyTweet(forID: printTweetId!, trimUser: false, tweetMode: TweetMode.extended, success: { json in
+            self.eraseCellDelegate?.blockButtonTapped(cell: self)
+            self.alert(title: "Poof", message: "Gone", uivc: self.parentViewController!)
+//            self.parentViewController?.toastMessage("Poof! Gone")
+//            self.reloadTalbeveiwInsideOfCell()
+//            self.alpha = 0.1
         },    failure: failureHandler)
     }
     
