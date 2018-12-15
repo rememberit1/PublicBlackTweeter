@@ -52,6 +52,11 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var statusesCount: UILabel!
     @IBOutlet weak var fancySegmentedControl: SJFluidSegmentedControl!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var headerView: UIView!
+    
+    
+    var profileImageUrl: String!
     
     var titleView = UILabel()
     
@@ -107,7 +112,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         profileTableView.delegate = self
         profileTableView.dataSource = self
         profileTableView?.register(UINib(nibName: "FreeCell", bundle: nil), forCellReuseIdentifier: "FreeCell")
-        
+        profileTableView.tableFooterView = UIView.init()
         profileCollieDelegate = self
         setUpMenuButton()
         
@@ -119,13 +124,13 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         }
         
         let viewDidLoadDispatch = DispatchGroup()
-        
         viewDidLoadDispatch.enter()
-        
+        self.hideView()
         if (username == nil ){
             swifter?.showUser(UserTag.id(userId!), includeEntities: true, success: { json in
                 self.hydrateProfView(json: json)
                 viewDidLoadDispatch.leave()
+                self.showView()
             }, failure: failureHandler)
             
         }else {
@@ -134,6 +139,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
                 
                 self.hydrateProfView(json: json)
                 viewDidLoadDispatch.leave()
+                self.showView()
             }, failure: failureHandler)
         }
         
@@ -141,6 +147,20 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
             self.finishedHead()
         }
         initNavigationItemTitleView()
+    }
+    
+    func hideView () {
+        self.activityIndicator.isHidden = false
+        self.headerView.isHidden = true
+        self.fancySegmentedControl.isHidden = true
+        self.profileTableView.isHidden = true
+    }
+    
+    func showView() {
+        self.activityIndicator.isHidden = true
+        self.headerView.isHidden = false
+        self.fancySegmentedControl.isHidden = false
+        self.profileTableView.isHidden = false
     }
     
     private func initNavigationItemTitleView() {
@@ -523,7 +543,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     }
     
     func hydrateProfView(json: JSON){
-        
+        self.view.isHidden = false
         if let name = json["name"].string {
             //  print("json.array ", json)
             var newName = name
@@ -577,7 +597,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         }
         
         if let backgroundImageUrl = json["profile_banner_url"].string {
-            logoImageView?.contentMode = UIViewContentMode.scaleAspectFill
+            /*logoImageView?.contentMode = UIViewContentMode.scaleAspectFill
             // headerImageView.sd_setImage(with: URL(string: backgroundImageUrl), placeholderImage: UIImage(named: "header_bg"))
             SDWebImageManager.shared().imageDownloader?.downloadImage(with: URL(string: backgroundImageUrl), options: SDWebImageDownloaderOptions.allowInvalidSSLCertificates, progress: { (min, max, url) in
                 //   print("loading……")
@@ -589,7 +609,9 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
                 } else {
                     print("did not load image in profileview")
                 }
-            })
+            })*/
+            
+            logoImageView.sd_setImage(with: URL(string: backgroundImageUrl), placeholderImage: nil)
         }
     }
     

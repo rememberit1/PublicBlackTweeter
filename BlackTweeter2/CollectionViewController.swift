@@ -73,7 +73,8 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.theTableview.tableFooterView = UIView.init()
+
         if (tokenDictionary != nil){
             self.displayLoadingGIF()
         }
@@ -102,6 +103,16 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         print("leaving collection view")
     }
     
+    func hideView() {
+        self.labelBackground.isHidden = true
+        self.theTableview.isHidden = true
+    }
+    
+    func showView() {
+        self.labelBackground.isHidden = false
+        self.theTableview.isHidden = false
+    }
+    
     private func initNavigationItemTitleView() {
         let titleView = UILabel()
         titleView.text = "BlackTweeter ✊🏾"
@@ -125,6 +136,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     
     
     func pureReload() {
+        hideView()
         if (CollectionViewController.allowedToReload){
             CollectionViewController.allowedToReload = false
             
@@ -136,6 +148,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                     print("no value!")
                     CollectionViewController.allowedToReload = true
                 } else if (versionSnap.value as! Int == self.hardVersion){
+                    self.showView()
                     self.ref = Database.database().reference().child("TheLatest")
                     self.ref.observe(.value, with: {(allCategoriesSnap) in
                         self.statusesForThisCategory.removeAll()

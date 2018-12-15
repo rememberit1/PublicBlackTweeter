@@ -110,6 +110,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.thisTableview.tableFooterView = UIView.init()
         self.displayLoadingGIF()
         
         //        let request = GADRequest ()
