@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="L40-w8-fm9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="L40-w8-fm9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -635,10 +635,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oNG-L1-IAk">
-                                                    <rect key="frame" x="4" y="10" width="115" height="154.5"/>
+                                                    <rect key="frame" x="4" y="10" width="115" height="154"/>
                                                 </imageView>
                                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kZ-Xa-Gea">
-                                                    <rect key="frame" x="4" y="126.5" width="115" height="38"/>
+                                                    <rect key="frame" x="4" y="126" width="115" height="38"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jAh-2f-5E1">
                                                         <rect key="frame" x="0.0" y="0.0" width="115" height="38"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -686,8 +686,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRD-79-sos">
                                 <rect key="frame" x="2" y="232" width="371" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giG-tK-hHP">
-                                        <rect key="frame" x="168" y="6" width="39" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giG-tK-hHP">
+                                        <rect key="frame" x="168" y="8" width="39" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -768,7 +768,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOo-5B-0Mu">
                                 <rect key="frame" x="0.0" y="64" width="375" height="160"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header_bg_def" translatesAutoresizingMaskIntoConstraints="NO" id="GbD-q3-46i">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GbD-q3-46i">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="375" id="Qna-Qm-Ifz"/>
@@ -953,15 +953,21 @@
                                     <outlet property="delegate" destination="bgP-n2-BQD" id="GtP-pT-v2q"/>
                                 </connections>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Xhi-j2-olP">
+                                <rect key="frame" x="169" y="347" width="37" height="37"/>
+                                <color key="color" red="0.58039215686274503" green="0.82745098039215681" blue="0.77647058823529413" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.2156862745" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iF8-fI-mvc" firstAttribute="top" secondItem="swd-k7-Eo4" secondAttribute="bottom" constant="8" id="3KM-hM-wkW"/>
+                            <constraint firstItem="Xhi-j2-olP" firstAttribute="centerY" secondItem="Tgz-6a-536" secondAttribute="centerY" id="4qu-4P-DRO"/>
                             <constraint firstItem="iF8-fI-mvc" firstAttribute="leading" secondItem="Tgz-6a-536" secondAttribute="leading" id="7LE-4X-BBo"/>
                             <constraint firstItem="swd-k7-Eo4" firstAttribute="top" secondItem="AOo-5B-0Mu" secondAttribute="bottom" constant="8" id="A4e-hm-iZU"/>
                             <constraint firstItem="AOo-5B-0Mu" firstAttribute="top" secondItem="Tgz-6a-536" secondAttribute="top" id="N6a-f0-FZt"/>
                             <constraint firstItem="Tgz-6a-536" firstAttribute="trailing" secondItem="swd-k7-Eo4" secondAttribute="trailing" constant="8" id="WCZ-FA-nJl"/>
+                            <constraint firstItem="Xhi-j2-olP" firstAttribute="centerX" secondItem="Tgz-6a-536" secondAttribute="centerX" id="Yhy-nt-6UB"/>
                             <constraint firstItem="iF8-fI-mvc" firstAttribute="bottom" secondItem="Tgz-6a-536" secondAttribute="bottom" id="cHu-JQ-Jo2"/>
                             <constraint firstItem="AOo-5B-0Mu" firstAttribute="trailing" secondItem="Tgz-6a-536" secondAttribute="trailing" id="cUk-oT-eSx"/>
                             <constraint firstItem="swd-k7-Eo4" firstAttribute="leading" secondItem="Tgz-6a-536" secondAttribute="leading" constant="8" id="eAC-hb-6jR"/>
@@ -972,6 +978,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="BlackTweeter ✊🏾" id="sg8-Ug-Yoj"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Xhi-j2-olP" id="IRI-Yk-8CP"/>
                         <outlet property="bio" destination="Mef-xM-sax" id="XU9-JE-tVa"/>
                         <outlet property="fancySegmentedControl" destination="swd-k7-Eo4" id="C4C-QQ-MYg"/>
                         <outlet property="follow" destination="MGh-rH-bRE" id="Pdp-XZ-R6g"/>
@@ -979,6 +986,7 @@
                         <outlet property="following" destination="MoZ-dG-t2Y" id="exe-hH-bnF"/>
                         <outlet property="fullNameHead" destination="jA2-4r-v3b" id="n3r-yT-H1a"/>
                         <outlet property="headerHeightConstraint" destination="UVX-oG-DR3" id="irK-NV-SfL"/>
+                        <outlet property="headerView" destination="AOo-5B-0Mu" id="aKS-MX-fR4"/>
                         <outlet property="logoImageView" destination="GbD-q3-46i" id="deT-Ma-hJN"/>
                         <outlet property="lowerBackground" destination="buI-og-1uL" id="nun-nS-qIz"/>
                         <outlet property="profileImageHead" destination="EVv-F1-ebd" id="LlE-8a-pWX"/>
@@ -1340,7 +1348,7 @@ This EULA agreement, and any dispute arising out of or in connection with this E
         </scene>
     </scenes>
     <resources>
-        <image name="blackTweeterIconCut" width="493" height="481"/>
+        <image name="blackTweeterIconCut" width="246" height="240"/>
         <image name="button:1BS-p7-d2j:image" width="19" height="11">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGVVZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEgcI
@@ -1692,7 +1700,6 @@ qgatBrIGwQbFBtAG2AblBvIHBwcMBxAHEgcUBxYHHwckByoHMgc0BzYHOAc6Bz8HRxizGLUYuhjIGMwY
 </mutableData>
         </image>
         <image name="default_profile_" width="256" height="256"/>
-        <image name="header_bg_def" width="482" height="148"/>
         <image name="imageView:5Ld-fp-oDz:image" width="256" height="256">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGVVZYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK8QEgcI
@@ -6444,9 +6451,9 @@ AAAAAAAAPgw
 </mutableData>
         </image>
         <image name="menu_icon" width="128" height="128"/>
-        <image name="message" width="40" height="40"/>
-        <image name="sign" width="40" height="40"/>
-        <image name="timeline" width="40" height="40"/>
+        <image name="message" width="25" height="25"/>
+        <image name="sign" width="25" height="25"/>
+        <image name="timeline" width="25" height="25"/>
     </resources>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
