@@ -953,7 +953,7 @@ class LatestCell: UITableViewCell {
 
         }
         if (self.likeOutside == false){
-            self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+            self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             //blockSwifter?.favoriteTweet(forID: printTweetId!, includeEntities: false, tweetMode: TweetMode.default, success: { json in
             swifter.favoriteTweet(forID: printTweetId!, includeEntities: false, tweetMode: TweetMode.default, success: { json in
                 print ("now liking")
@@ -967,7 +967,7 @@ class LatestCell: UITableViewCell {
                 self.makeToast("Liked 👍🏾", duration: 2.0, position: .center, style: self.style)
             }, failure: failureHandler)
         }else if (self.likeOutside == true){
-            self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+            self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             blockSwifter?.unfavoriteTweet(forID: printTweetId!, includeEntities: false, tweetMode: TweetMode.default, success: { json in
                 self.likeOutside = false
                 print ("now UNliking")
@@ -990,7 +990,7 @@ class LatestCell: UITableViewCell {
         }
         
         if (self.retweetOutside == false){
-            self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+            self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             blockSwifter?.retweetTweet(forID: printTweetId!, trimUser: false, tweetMode: TweetMode.default, success: { json in
                 self.retweetOutside = true
                 let row = sender.tag
@@ -1003,7 +1003,7 @@ class LatestCell: UITableViewCell {
                 
             }, failure: failureHandler)
         }else if (self.retweetOutside == true){
-            self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+            self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             blockSwifter?.unretweetTweet(forID: printTweetId!, trimUser: false, tweetMode: TweetMode.default, success: { json in
                 self.retweetOutside = false
                 let row = sender.tag
@@ -1025,7 +1025,7 @@ class LatestCell: UITableViewCell {
         
         alert.addAction(UIAlertAction(title: "Block User", style: .default, handler: {action in
             print("block button clicked")
-            self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+            self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             self.blockSwifter?.blockUser(UserTag.screenName(self.printUsername!), includeEntities: true, skipStatus: false, success: {json in
                 print("blocked user")
 //                if (self.parentViewController is CollectionViewController){
@@ -1042,7 +1042,7 @@ class LatestCell: UITableViewCell {
         
         alert.addAction(UIAlertAction(title: "Flag/Report Content", style: .default, handler: {action in
             print("report button clicked")
-            self.blockSwifter = Swifter(consumerKey: "MwYDbr7xNHpEl9ZoSIZyt5WqL", consumerSecret: "2CAHZoTQJF78P6gMZbapPnK58pbJdohpWE094RCtyRu7RwvMqH", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
+            self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             self.blockSwifter?.reportSpam(for: UserTag.screenName(self.printUsername!), success: {json in
                 print("reported user")
                 self.eraseCellDelegate?.blockButtonTapped(cell: self)

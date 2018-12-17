@@ -26,9 +26,10 @@ class BaseViewController: UIViewController {
         GIFHUD.shared.show()
         
 //        let delay = DispatchTime.now() + Double(Int64(2 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-//        DispatchQueue.main.asyncAfter(deadline: delay, execute: {
-//            GiFHUD.dismiss()
-//        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0, execute: {
+            self.dismissLoadingGIF()
+        })
+
     }
     
     func dismissLoadingGIF (){
