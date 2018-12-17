@@ -494,7 +494,7 @@ class LatestCell: UITableViewCell {
     
     private func setUpSlideshow() {
         self.slideshow?.backgroundColor = UIColor.white
-        self.slideshow?.slideshowInterval = 4.0
+        self.slideshow?.slideshowInterval = 15.0
         self.slideshow?.pageControlPosition = PageControlPosition.hidden
         self.slideshow?.contentScaleMode = .scaleAspectFit
     }
@@ -607,12 +607,15 @@ class LatestCell: UITableViewCell {
     private func setImage(images: [InputSource]?) {
         
         if let images = images {
-            self.slideshow?.setImageInputs(images)
+            var oneImage: [InputSource]?
+            oneImage?.append(images[0])
+            //self.slideshow?.setImageInputs(images)
+            self.slideshow?.setImageInputs(oneImage ?? images)
             if(latestStatus?.retweetedBy != nil){
                 RetweetedByLabel.isHidden = false
             }
         } else {
-           // self.slideshow?.setImageInputs(placeholderImages)
+           // self.slideshow?.setImageInputs(placeholderImages)ima
         }
         //self.centerLoadingActivityIndicatorView?.stopAnimating()
         

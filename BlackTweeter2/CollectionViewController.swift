@@ -859,15 +859,17 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         
         twitterDispatch.notify(queue: .main) {
             //dispatch is only done once
-            if (self.changeableTweetsArray == nil){
+            //if (self.changeableTweetsArray == nil){
                 self.changeableTweetsArray = self.twitterDictionary[self.firstFirebaseCategory!]//if this is our first time loading the view, no selection
                 let firstTweetArray = self.firebaseDictionary[self.firstFirebaseCategory!]?.tweetArray
                 self.changeableTweetsArray = []
+                self.changeableTweetsArray?.removeAll()
                 for eachFBtweet in firstTweetArray! {
                     self.changeableTweetsArray?.append(eachFBtweet.status!)
                 }
+            self.categoryLabel.text = self.firstFirebaseCategory
                 
-            }
+           // }
             
             self.reusableTableView = ReusableTableView(self.theTableview, self.changeableTweetsArray!, self)
             self.theTableview.reloadData()

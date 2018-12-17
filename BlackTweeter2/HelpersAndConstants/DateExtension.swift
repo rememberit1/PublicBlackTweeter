@@ -41,9 +41,9 @@ public extension Date {
         }
         let diff = Calendar.current.dateComponents([.weekOfYear], from: self, to: Date()).weekOfYear ?? 0
         if (diff == 1){
-            return "\(diff) week ago"
+            return "\(diff) wk ago"
         }else{
-            return "\(diff) weeks ago"
+            return "\(diff) wks ago"
         }
     }
 }
