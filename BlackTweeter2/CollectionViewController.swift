@@ -561,6 +561,10 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                 self.dismissLoadingGIF()
             }
             
+             let failureHandlerblock: (Error) -> Void = { error in
+                print("blocked fail")
+            }
+            
             print("test if all dictionary is valid BEFORE fetch: \(firebaseDictionary)")
             
             
@@ -577,6 +581,12 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                     realTweetArray.append(fbTweet.tweetId!)
                 }
             }
+            
+            self.swifter?.getBlockedUsersIDsBen(stringifyIDs: "true", cursor: nil, success: { json in
+                // Successfully fetched timeline, so lets create and push the table view
+                print("blocked: ", json["ids"].array ?? [])
+                
+            }, failure: failureHandlerblock)
             
             self.swifter?.lookupTweets(for: realTweetArray, includeEntities: true, map: false, tweetMode: TweetMode.extended, success: { json in
                 // Successfully fetched timeline, so lets create and push the table view

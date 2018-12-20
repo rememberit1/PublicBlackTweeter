@@ -243,6 +243,21 @@ public extension Swifter {
             success?(json["ids"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
             }, failure: failure)
     }
+    
+    public func getBlockedUsersIDsBen (stringifyIDs: String? = nil,
+                                   cursor: String? = nil,
+                                   success: SuccessHandler? = nil,
+                                   failure: FailureHandler? = nil) {
+        let path = "blocks/ids.json"
+        
+        var parameters = [String: Any]()
+        parameters["stringify_ids"] ??= stringifyIDs
+        parameters["cursor"] ??= cursor
+        
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+            success?(json)
+            }, failure: failure)
+    }
 
     /**
     POST	blocks/create

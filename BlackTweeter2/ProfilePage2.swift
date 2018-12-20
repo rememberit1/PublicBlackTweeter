@@ -286,7 +286,6 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
                 self.fancySegmentedControl.alpha = 1.0
                 self.functionJson = [:]
                 self.functionJson = json
-                
                 abstractDispatch.leave()
             }, failure: failureHandler)
         }
