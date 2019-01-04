@@ -10,6 +10,7 @@ target 'BlackTweeter2' do
   target 'BlackTweeter2Tests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'SpecLeaks'
   end
 
   target 'BlackTweeter2UITests' do
@@ -29,13 +30,13 @@ target 'BlackTweeter2' do
     pod 'Firebase'
     pod 'Firebase/Database'
     pod 'Firebase/Messaging'
-    pod 'Kingfisher', '~> 4.0'
     pod 'CollieGallery'
     pod 'SwiftLinkPreview', '~> 2.3.1'
     pod 'Alamofire', '4.7.3'
     pod 'SwiftyDrop', '4.1.0'
     pod 'ImageSlideshow', '1.5.3'
     pod 'ImageSlideshow/Alamofire', '1.5.3'
+    #pod 'Kingfisher', '~> 4.0'
     #pod 'paper-onboarding'
     #pod 'GiFHUD-Swift'
     #pod 'BEMCheckBox'

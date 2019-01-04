@@ -14,9 +14,6 @@ import CollieGallery
 
 class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, LatestCellDelegator, CustomCellUpdater, CollieGalleryDelegate, UIGestureRecognizerDelegate, EraseCellDelegate
 {
-
-    
-
     
     public static var profTableviewScrolled: Bool = false
     public static var backgroundIsBlurred = false
@@ -269,6 +266,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     
     func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
         gallery.presentInViewController(parentCollectionController!)
+        gallery.scrollToIndex(index)
         
         print("stack this is happening in reusabletable view")
     }

@@ -24,6 +24,16 @@ protocol EraseCellDelegate: class {
     func blockButtonTapped(cell: LatestCell)
 }
 
+class GalleryTapGestureRecog : UITapGestureRecognizer {
+    var int : Int?
+    // any more custom variables here
+    
+    init(target: AnyObject?, action: Selector, int : Int?) {
+        super.init(target: target, action: action)
+        self.int = int
+    }
+}
+
 class LatestCell: UITableViewCell {
     
     weak var delegate: LatestCellDelegator!
@@ -93,7 +103,7 @@ class LatestCell: UITableViewCell {
     @IBOutlet weak var RTThreeAndFourStackView: UIStackView!
     
     
-    var imageLoader: ImageCacheLoader?
+    weak var imageLoader: ImageCacheLoader?
     var myId: String?
     var printTweetId: String?
     var printUserId: String?
@@ -123,8 +133,8 @@ class LatestCell: UITableViewCell {
     let tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
     
     //let slp = SwiftLinkPreview.init()
-    private let slp = SwiftLinkPreview(cache: InMemoryCache())
-    private var result = SwiftLinkPreview.Response()
+     private let slp = SwiftLinkPreview(cache: InMemoryCache())
+     private var result = SwiftLinkPreview.Response()
     
     
     @IBAction func blockAction(_ sender: Any) {
@@ -191,13 +201,20 @@ class LatestCell: UITableViewCell {
         cellUsername.isUserInteractionEnabled = true
         cellUsername.addGestureRecognizer(tapNakedRecognizer)
         
-        let galleryTapGestureRecog = UITapGestureRecognizer(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)))
-        AllPicsStackView?.isUserInteractionEnabled = true
-        AllPicsStackView?.addGestureRecognizer(galleryTapGestureRecog)
+        //let galleryTapGestureRecog = UITapGestureRecognizer(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)))
+        let galleryTapGestureRecog = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 0)
+        let galleryTapGestureRecog1 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 1)
+        let galleryTapGestureRecog2 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 2)
+        let galleryTapGestureRecog3 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 3)
+        let RTgalleryTapGestureRecog = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 0)
+        let RTgalleryTapGestureRecog1 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 1)
+        let RTgalleryTapGestureRecog2 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 2)
+        let RTgalleryTapGestureRecog3 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 3)
+//        AllPicsStackView?.isUserInteractionEnabled = true
+//        AllPicsStackView?.addGestureRecognizer(galleryTapGestureRecog)
         
-        let RTgalleryTapGestureRecog = UITapGestureRecognizer(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)))
-        RTAllPicsStackView?.isUserInteractionEnabled = true
-        RTAllPicsStackView?.addGestureRecognizer(RTgalleryTapGestureRecog)
+//        RTAllPicsStackView?.isUserInteractionEnabled = true
+//        RTAllPicsStackView?.addGestureRecognizer(RTgalleryTapGestureRecog)
         
         let videoTapGestureRecog = UITapGestureRecognizer(target: self, action: #selector(videoPlayerSuperviewClick(videoGestureRecognizer:)))
         videoPlayerSuperview?.isUserInteractionEnabled = true
@@ -221,6 +238,23 @@ class LatestCell: UITableViewCell {
         previewTitle?.addGestureRecognizer(previewTapGestureRecog)
         slideshow?.addGestureRecognizer(previewTapGestureRecog2)
         previewCanonicalUrl?.addGestureRecognizer(previewTapGestureRecog3)
+        
+        statusImage0.isUserInteractionEnabled = true
+        statusImage1.isUserInteractionEnabled = true
+        statusImage2.isUserInteractionEnabled = true
+        statusImage3.isUserInteractionEnabled = true
+        RTstatusImage0.isUserInteractionEnabled = true
+        RTstatusImage1.isUserInteractionEnabled = true
+        RTstatusImage2.isUserInteractionEnabled = true
+        RTstatusImage3.isUserInteractionEnabled = true
+        statusImage0.addGestureRecognizer(galleryTapGestureRecog)
+        statusImage1.addGestureRecognizer(galleryTapGestureRecog1)
+        statusImage2.addGestureRecognizer(galleryTapGestureRecog2)
+        statusImage3.addGestureRecognizer(galleryTapGestureRecog3)
+        RTstatusImage0.addGestureRecognizer(RTgalleryTapGestureRecog)
+        RTstatusImage1.addGestureRecognizer(RTgalleryTapGestureRecog1)
+        RTstatusImage2.addGestureRecognizer(RTgalleryTapGestureRecog2)
+        RTstatusImage3.addGestureRecognizer(RTgalleryTapGestureRecog3)
     }
     
     //THIS IS HOW WE SET THE VIDEO IN THE VIEW: youre going to have to do alot more look here: https://stackoverflow.com/questions/33702490/embedding-videos-in-a-tableview-cell
@@ -246,6 +280,8 @@ class LatestCell: UITableViewCell {
     
     var latestStatus: LatestStatus? {
         didSet {
+            
+            
 
             statusImage0.layer.cornerRadius = 8.0
             statusImage1.layer.cornerRadius = 8.0
@@ -450,6 +486,7 @@ class LatestCell: UITableViewCell {
             
         }
     }
+    
     
     @objc func didTap() {
        // slideshow.presentFullScreenController(from: self)
@@ -687,8 +724,9 @@ class LatestCell: UITableViewCell {
         
         if (latestStatus?.statusImageUrl0 != nil){
             let fileUrl = URL(string: (latestStatus?.statusImageUrl0)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            statusImage0.kf.setImage(with: resource)
+            //let resource = ImageResource(downloadURL: fileUrl!)
+            //statusImage0.kf.setImage(with: resource)
+            statusImage0.sd_setImage(with: fileUrl, placeholderImage: nil)
             
             //https://github.com/gmunhoz/CollieGallery
             var picture = CollieGalleryPicture()
@@ -703,23 +741,26 @@ class LatestCell: UITableViewCell {
         }
         if (latestStatus?.statusImageUrl1 != nil){
             let fileUrl = URL(string: (latestStatus?.statusImageUrl1)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            statusImage1.kf.setImage(with: resource)
+//            let resource = ImageResource(downloadURL: fileUrl!)
+//            statusImage1.kf.setImage(with: resource)
+            statusImage1.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.statusImageUrl1)!)
             pictures.append(picture)
         }
         if (latestStatus?.statusImageUrl2 != nil){
             let fileUrl = URL(string: (latestStatus?.statusImageUrl2)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            statusImage2.kf.setImage(with: resource)
+//            let resource = ImageResource(downloadURL: fileUrl!)
+//            statusImage2.kf.setImage(with: resource)
+            statusImage2.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.statusImageUrl2)!)
             pictures.append(picture)
             
         }
         if (latestStatus?.statusImageUrl3 != nil){
             let fileUrl = URL(string: (latestStatus?.statusImageUrl3)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            statusImage3.kf.setImage(with: resource)
+//            let resource = ImageResource(downloadURL: fileUrl!)
+//            statusImage3.kf.setImage(with: resource)
+            statusImage3.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.statusImageUrl3)!)
             pictures.append(picture)
         }
@@ -739,8 +780,9 @@ class LatestCell: UITableViewCell {
         
         if (latestStatus?.RTmediaString0 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString0)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            RTstatusImage0.kf.setImage(with: resource)
+//            let resource = ImageResource(downloadURL: fileUrl!)
+//            RTstatusImage0.kf.setImage(with: resource)
+            RTstatusImage0.sd_setImage(with: fileUrl, placeholderImage: nil)
             
             //https://github.com/gmunhoz/CollieGallery
             var picture = CollieGalleryPicture()
@@ -754,22 +796,25 @@ class LatestCell: UITableViewCell {
         }
         if (latestStatus?.RTmediaString1 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString1)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            RTstatusImage1.kf.setImage(with: resource)
+//            let resource = ImageResource(downloadURL: fileUrl!)
+//            RTstatusImage1.kf.setImage(with: resource)
+            RTstatusImage1.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.RTmediaString1)!)
             pictures.append(picture)
         }
         if (latestStatus?.RTmediaString2 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString2)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            RTstatusImage2.kf.setImage(with: resource)
+//            let resource = ImageResource(downloadURL: fileUrl!)
+//            RTstatusImage2.kf.setImage(with: resource)
+            RTstatusImage2.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.RTmediaString2)!)
             pictures.append(picture)
         }
         if (latestStatus?.RTmediaString3 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString3)!)
-            let resource = ImageResource(downloadURL: fileUrl!)
-            RTstatusImage3.kf.setImage(with: resource)
+//            let resource = ImageResource(downloadURL: fileUrl!)
+//            RTstatusImage3.kf.setImage(with: resource)
+            RTstatusImage3.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.RTmediaString3)!)
             pictures.append(picture)
         }
@@ -826,7 +871,7 @@ class LatestCell: UITableViewCell {
         }
     }
     
-    @objc func statusImageClick(galleryTapGestureRecog: UITapGestureRecognizer)
+    @objc func statusImageClick(galleryTapGestureRecog: GalleryTapGestureRecog)
     {
         let options = CollieGalleryOptions()
         options.parallaxFactor = 0.8
@@ -834,7 +879,7 @@ class LatestCell: UITableViewCell {
         // options.gapBetweenPages = 20
         let gallery = CollieGallery(pictures: pictures, options: options)
         if (self.collieDelegate != nil){
-            self.collieDelegate?.gallery!(gallery, indexChangedTo: 0)
+            self.collieDelegate?.gallery!(gallery, indexChangedTo: galleryTapGestureRecog.int!)
         }
     }
     
@@ -1231,6 +1276,10 @@ class LatestCell: UITableViewCell {
     }
     
 }
+
+//class LatestCellTest: QuickSpec {
+//    
+//}
 
 //extension UIResponder {
 //

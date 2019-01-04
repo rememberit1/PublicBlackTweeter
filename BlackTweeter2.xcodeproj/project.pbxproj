@@ -65,6 +65,7 @@
 		8FAE5AF11FBD5C3300972EAE /* WriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE5AF01FBD5C3300972EAE /* WriteViewController.swift */; };
 		8FAE5AF41FBD64C300972EAE /* HomeStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FAE5AF31FBD64C300972EAE /* HomeStatus.swift */; };
 		8FB38FBF1FD5F6D4000AAF90 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB38FBE1FD5F6D4000AAF90 /* Alert.swift */; };
+		8FCA71C321DED558006F3A4C /* ScaleImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCA71C221DED558006F3A4C /* ScaleImageExtension.swift */; };
 		8FCFB7601FD9BD64007D87E6 /* LatestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCFB75F1FD9BD64007D87E6 /* LatestCell.swift */; };
 		8FCFB7621FDA7264007D87E6 /* LatestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCFB7611FDA7264007D87E6 /* LatestStatus.swift */; };
 		8FD7AFDD20ACDA5700834555 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7AFDC20ACDA5700834555 /* BaseViewController.swift */; };
@@ -235,6 +236,7 @@
 		8FAE5AF01FBD5C3300972EAE /* WriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteViewController.swift; sourceTree = "<group>"; };
 		8FAE5AF31FBD64C300972EAE /* HomeStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStatus.swift; sourceTree = "<group>"; };
 		8FB38FBE1FD5F6D4000AAF90 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		8FCA71C221DED558006F3A4C /* ScaleImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImageExtension.swift; sourceTree = "<group>"; };
 		8FCFB75F1FD9BD64007D87E6 /* LatestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCell.swift; sourceTree = "<group>"; };
 		8FCFB7611FDA7264007D87E6 /* LatestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestStatus.swift; sourceTree = "<group>"; };
 		8FD7AFDC20ACDA5700834555 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				8FA0D50A21024AAE008F636E /* DateExtension.swift */,
 				8FD9D81121871774002A69FB /* UIEdgeInsets.swift */,
 				8FD9D84F2189524D002A69FB /* BTParentViewController.swift */,
+				8FCA71C221DED558006F3A4C /* ScaleImageExtension.swift */,
 			);
 			path = HelpersAndConstants;
 			sourceTree = "<group>";
@@ -827,7 +830,6 @@
 				"${BUILT_PRODUCTS_DIR}/FLAnimatedImage/FLAnimatedImage.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/ImageSlideshow/ImageSlideshow.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Locksmith/Locksmith.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -847,7 +849,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FLAnimatedImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ImageSlideshow.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Locksmith.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -900,9 +901,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BlackTweeter2Tests/Pods-BlackTweeter2Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+				"${BUILT_PRODUCTS_DIR}/SpecLeaks/SpecLeaks.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SpecLeaks.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -946,6 +954,7 @@
 				8FABCBA01FFEA83400B3F672 /* MMDrawerVisualState.m in Sources */,
 				8FAE5AF11FBD5C3300972EAE /* WriteViewController.swift in Sources */,
 				8F1CC1A020D2C9B2002C73D4 /* BEMAnimationManager.m in Sources */,
+				8FCA71C321DED558006F3A4C /* ScaleImageExtension.swift in Sources */,
 				8F721BC11FF6EB3A00E64D38 /* AuthViewReal.swift in Sources */,
 				8F3658972055D31700EF2115 /* UITextViewHashtagExtension.swift in Sources */,
 				8FCFB7601FD9BD64007D87E6 /* LatestCell.swift in Sources */,
