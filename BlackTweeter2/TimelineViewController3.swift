@@ -46,8 +46,16 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     private var latestStatuses: [LatestStatus] = []
     var tweetsArray : [JSON] = []
     
+    private lazy var refresher: UIRefreshControl = {
+    let refreshControl = UIRefreshControl()
+    refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(clearOutAndRefresh), for: .valueChanged)
+    return refreshControl
+    }()
+    
+    
     //this is done everytime the reload button is clicked
-    func clearOutAndRefresh () {
+    @objc func clearOutAndRefresh () {
         tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
         latestStatuses = []
         tweetsArray = []
@@ -56,6 +64,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
             brainsForViewDidLoad()
             print("cleared out and refreshed")
         }
+        
     }
     
     
@@ -110,6 +119,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.thisTableview.tableFooterView = UIView.init()
         self.displayLoadingGIF()
         
@@ -124,6 +134,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
         brainsForViewDidLoad()
         setUpMenuButton()
         initNavigationItemTitleView()
+
         //NotificationCenter.default.addObserver(self, selector: #selector(TimelineViewController3.objcBrains), name: NSNotification.Name(rawValue: "timelineReload"), object: nil)
     }
     
@@ -138,6 +149,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
         let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.titleWasTapped))
         titleView.isUserInteractionEnabled = true
         titleView.addGestureRecognizer(recognizer)
+        
     }
     
     @objc private func titleWasTapped() {
@@ -441,10 +453,10 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     func refreshUI() {
         DispatchQueue.main.async{
             self.reusableTableView = ReusableTableView(self.thisTableview, self.latestStatuses, self)
-            //self.reusableTableView.tableView?.reloadData()
             self.thisTableview.reloadData()
             self.scrollToFirstRow()
             self.dismissLoadingGIF()
+            self.reusableTableView.tableView?.refreshControl = self.refresher
         }
     }
     

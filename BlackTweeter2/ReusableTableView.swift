@@ -8,7 +8,6 @@
 
 import UIKit
 import Foundation
-import Kingfisher
 import CollieGallery
 
 

@@ -62,6 +62,13 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     var changeableTweetsArray: [LatestStatus]?
     static var allowedToReload = true
     
+    private lazy var refresher: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(objcPureReload), for: .valueChanged)
+        return refreshControl
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintAdjustmentMode = .normal
@@ -140,6 +147,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         if (CollectionViewController.allowedToReload){
             CollectionViewController.allowedToReload = false
             
+            
 
            // versionRef = Database.database().reference().child("Version")
             versionRef = Database.database().reference().child("VersionApple")
@@ -148,6 +156,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                     print("no value!")
                     CollectionViewController.allowedToReload = true
                 } else if (versionSnap.value as! Int == self.hardVersion){
+                    self.displayLoadingGIF()
                     self.showView()
                     self.ref = Database.database().reference().child("TheLatest")
                     self.ref.observe(.value, with: {(allCategoriesSnap) in
@@ -316,6 +325,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         
         self.reusableTableView = ReusableTableView(theTableview, changeableTweetsArray!, self)
         self.reusableTableView.tableView?.reloadData()
+        self.reusableTableView.tableView?.refreshControl = self.refresher
         self.scrollToFirstRow()
         
         let cellForAlpha = self.mainCollectionView.cellForItem(at: indexPath)
@@ -882,10 +892,12 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
            // }
             
             self.reusableTableView = ReusableTableView(self.theTableview, self.changeableTweetsArray!, self)
+            
             self.theTableview.reloadData()
             self.scrollToFirstRow()
             self.dismissLoadingGIF()
             CollectionViewController.allowedToReload = true
+            
         }
         
     }

@@ -16,8 +16,8 @@ class BaseViewController: UIViewController {
         //GiFHUD.setGif("pika.gif")
         //http://www.online-image-editor.com/help/transparency
        // GIFHUD.setGif("realBlackLoading.gif")
+        GIFHUD.shared.hudSize = CGSize(width: 100, height: 150)
         GIFHUD.shared.setGif(named: "realBlackLoading.gif")
-        GIFHUD.shared.hudSize = CGSize(width: 150, height: 150)
         
        // showLoadingGIF()
     }

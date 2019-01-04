@@ -11,7 +11,6 @@ import SwifteriOS
 import SDWebImage
 import AVKit
 import AVFoundation
-import Kingfisher
 import Locksmith
 import CollieGallery
 import SwiftLinkPreview
@@ -726,7 +725,11 @@ class LatestCell: UITableViewCell {
             let fileUrl = URL(string: (latestStatus?.statusImageUrl0)!)
             //let resource = ImageResource(downloadURL: fileUrl!)
             //statusImage0.kf.setImage(with: resource)
-            statusImage0.sd_setImage(with: fileUrl, placeholderImage: nil)
+            //statusImage0.sd_setImage(with: fileUrl, placeholderImage: nil)
+            statusImage0.sd_setImage(with: fileUrl, completed: {image, error, cacheType, imageURL in
+                //write code
+                })
+            
             
             //https://github.com/gmunhoz/CollieGallery
             var picture = CollieGalleryPicture()

@@ -669,6 +669,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     
     func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
         gallery.presentInViewController(self)
+        gallery.scrollToIndex(index)
         print("stack this is happening in profilepage view")
     }
     
