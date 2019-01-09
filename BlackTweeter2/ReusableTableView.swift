@@ -11,24 +11,24 @@ import Foundation
 import CollieGallery
 
 
-class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, LatestCellDelegator, CustomCellUpdater, CollieGalleryDelegate, UIGestureRecognizerDelegate, EraseCellDelegate
+class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, UIScrollViewDelegate, LatestCellDelegator, CustomCellUpdater, CollieGalleryDelegate, UIGestureRecognizerDelegate, EraseCellDelegate
 {
     
     public static var profTableviewScrolled: Bool = false
     public static var backgroundIsBlurred = false
     
-    var parentCollectionController: UIViewController?
+    weak var parentCollectionController: UIViewController?
     
     var blurEffectView: UIVisualEffectView?
     var twitterWebview : UIWebView?
     
-    public var tableView: UITableView?
+    weak public var tableView: UITableView?
     
-    var tableViewData: [LatestStatus]?
+     var tableViewData: [LatestStatus]?
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     
    // let transition = TransitionAnimator()
-    var selectedCell = UITableViewCell()
+    weak var selectedCell = UITableViewCell()
     static var favoriteSelected:[Bool] = Array(repeating: false, count: 198)
     static var retweetSelected:[Bool] = Array(repeating: false, count: 198)
     
@@ -53,12 +53,56 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         return tableViewData!.count
     }
     
-    //everytime reload data is done, this function is re-ran
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let latestCell = cell as! LatestCell
+//        latestCell.avPlayerLayer?.removeFromSuperlayer()
+//        latestCell.avPlayer = nil
+        
+        //
+        //        if (latestCell.statusImage0.image != nil){
+        //        latestCell.statusImage0.image = nil
+        //        }
+        //        if (latestCell.statusImage1.image != nil){
+        //            latestCell.statusImage1.image = nil
+        //        }
+        //        if (latestCell.statusImage2.image != nil){
+        //            latestCell.statusImage2.image = nil
+        //        }
+        //        if (latestCell.statusImage3.image != nil){
+        //            latestCell.statusImage3.image = nil
+        //        }
+        //        if (latestCell.RTstatusImage0.image != nil){
+        //            latestCell.RTstatusImage0.image = nil
+        //        }
+        //        if (latestCell.RTstatusImage1.image != nil){
+        //            latestCell.RTstatusImage1.image = nil
+        //        }
+        //        if (latestCell.RTstatusImage2.image != nil){
+        //            latestCell.RTstatusImage2.image = nil
+        //        }
+        //        if (latestCell.RTstatusImage3.image != nil){
+        //            latestCell.RTstatusImage3.image = nil
+        //        }
+        //
+        //        if (latestCell.avPlayer != nil){
+        //            latestCell.avPlayer = nil
+        //        }
+        //        if (latestCell.avPlayerLayer != nil){
+        //            latestCell.avPlayerLayer = nil
+        //        }
+        //        if (latestCell.profileImageView.image != nil){
+        //            latestCell.profileImageView.image = nil
+        //        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = tableViewData?[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "FreeCell", for: indexPath) as! LatestCell
         cell.separatorInset = UIEdgeInsets.zero;
         cell.latestStatus = tableViewData?[indexPath.row]//this is a struct
+        
+
         
         cell.updateButtons()
         //ensre button state stays the same even after scrolling up and down https://stackoverflow.com/questions/26961203/xcode6-swift-uibutton-sender-not-unique
@@ -80,8 +124,8 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
                                andMentionColor: AppConstants.tweeterDarkGreen,
                                andCallBack: linkCallBack,
                                normalFont: UIFont.systemFont(ofSize: 15),
-                               hashTagFont: UIFont.systemFont(ofSize: 15),
-                               mentionFont: UIFont.systemFont(ofSize: 15))
+                               hashTagFont: UIFont.systemFont(ofSize: 25),
+                               mentionFont: UIFont.systemFont(ofSize: 25))
         if (cell.cellLatestTweet.text.hasPrefix("http")){
             
         }
@@ -90,6 +134,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         cell.cellLatestTweet.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: AppConstants.tweeterDarkGreen]
         
         cell.update(data!)
+        
         
         cell.delegate = self
         cell.customCelldelegate = self
@@ -109,7 +154,8 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        //let cell =  tableView.dequeueReusableCell(withIdentifier: "FreeCell", for: indexPath) as! LatestCell
+        let cell =  tableView.dequeueReusableCell(withIdentifier: "FreeCell", for: indexPath) as! LatestCell
+        
         cell.alpha = 0
         let slideTransfrom = CATransform3DTranslate(CATransform3DIdentity, -75, 0, 0)
         cell.layer.transform = slideTransfrom
@@ -117,6 +163,8 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
             cell.alpha = 1.0
             cell.layer.transform = CATransform3DIdentity
         })
+        
+        print("displaying cell: ", indexPath.row)
     }
     
      func blockButtonTapped(cell: LatestCell) {
@@ -272,6 +320,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         ReusableTableView.profTableviewScrolled = true
+       // print("scrolling in reusable")
     }
     
     func updateTableView() {

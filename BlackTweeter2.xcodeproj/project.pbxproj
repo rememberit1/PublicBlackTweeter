@@ -54,6 +54,7 @@
 		8FA0D50B21024AAE008F636E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA0D50A21024AAE008F636E /* DateExtension.swift */; };
 		8FA0D50D21098CDF008F636E /* FBCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA0D50C21098CDF008F636E /* FBCategory.swift */; };
 		8FA0D50F21098E3B008F636E /* FBTweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA0D50E21098E3B008F636E /* FBTweet.swift */; };
+		8FA105EE21E49630000C1EA9 /* realBlackLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8FA105ED21E49630000C1EA9 /* realBlackLoading.gif */; };
 		8FA1CC1E1FBF38AB007F0D46 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA1CC1D1FBF38AB007F0D46 /* AppConstants.swift */; };
 		8FA9F61921BD83A000606CF9 /* SwifteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F842E15A21BCA6C9005F4139 /* SwifteriOS.framework */; };
 		8FA9F61A21BD83A000606CF9 /* SwifteriOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F842E15A21BCA6C9005F4139 /* SwifteriOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -68,7 +69,6 @@
 		8FCA71C321DED558006F3A4C /* ScaleImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCA71C221DED558006F3A4C /* ScaleImageExtension.swift */; };
 		8FCFB7601FD9BD64007D87E6 /* LatestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCFB75F1FD9BD64007D87E6 /* LatestCell.swift */; };
 		8FCFB7621FDA7264007D87E6 /* LatestStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FCFB7611FDA7264007D87E6 /* LatestStatus.swift */; };
-		8FD5095821DF069C00FDAFBF /* realBlackLoading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8FD5095721DF069C00FDAFBF /* realBlackLoading.gif */; };
 		8FD7AFDD20ACDA5700834555 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD7AFDC20ACDA5700834555 /* BaseViewController.swift */; };
 		8FD9D81221871774002A69FB /* UIEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9D81121871774002A69FB /* UIEdgeInsets.swift */; };
 		8FD9D8502189524D002A69FB /* BTParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD9D84F2189524D002A69FB /* BTParentViewController.swift */; };
@@ -222,6 +222,7 @@
 		8FA0D50A21024AAE008F636E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		8FA0D50C21098CDF008F636E /* FBCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCategory.swift; sourceTree = "<group>"; };
 		8FA0D50E21098E3B008F636E /* FBTweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBTweet.swift; sourceTree = "<group>"; };
+		8FA105ED21E49630000C1EA9 /* realBlackLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = realBlackLoading.gif; path = "../../../Desktop/gif loading/realBlackLoading.gif"; sourceTree = "<group>"; };
 		8FA1CC1D1FBF38AB007F0D46 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		8FA9F62C21BE33D900606CF9 /* EULAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EULAViewController.swift; sourceTree = "<group>"; };
 		8FABCB971FFEA83300B3F672 /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
@@ -239,7 +240,6 @@
 		8FCA71C221DED558006F3A4C /* ScaleImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleImageExtension.swift; sourceTree = "<group>"; };
 		8FCFB75F1FD9BD64007D87E6 /* LatestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCell.swift; sourceTree = "<group>"; };
 		8FCFB7611FDA7264007D87E6 /* LatestStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestStatus.swift; sourceTree = "<group>"; };
-		8FD5095721DF069C00FDAFBF /* realBlackLoading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = realBlackLoading.gif; path = ../../../.Trash/realBlackLoading.gif; sourceTree = "<group>"; };
 		8FD7AFDC20ACDA5700834555 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8FD9D81121871774002A69FB /* UIEdgeInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsets.swift; sourceTree = "<group>"; };
 		8FD9D84F2189524D002A69FB /* BTParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BTParentViewController.swift; sourceTree = "<group>"; };
@@ -472,7 +472,7 @@
 				8FA1CC1D1FBF38AB007F0D46 /* AppConstants.swift */,
 				8F9116BB20BE71C500C98A54 /* ImageCacheLoader.swift */,
 				8F2C444A20FEFEC5004D025D /* GiFHUD.swift */,
-				8FD5095721DF069C00FDAFBF /* realBlackLoading.gif */,
+				8FA105ED21E49630000C1EA9 /* realBlackLoading.gif */,
 				8F288C032060AF4A0079C4B3 /* TWTButton.swift */,
 				8F288C012060AF400079C4B3 /* AvatarImageView.swift */,
 				8FB38FBE1FD5F6D4000AAF90 /* Alert.swift */,
@@ -694,7 +694,7 @@
 				8F7A73EB208590D80052DD44 /* FreeCell.xib in Resources */,
 				8F4DB0121F902E6C00CDD427 /* Main.storyboard in Resources */,
 				8FE4B9DE20AB396000C5D6FC /* Assets.xcassets in Resources */,
-				8FD5095821DF069C00FDAFBF /* realBlackLoading.gif in Resources */,
+				8FA105EE21E49630000C1EA9 /* realBlackLoading.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,7 +1169,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1194,7 +1194,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

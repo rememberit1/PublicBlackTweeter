@@ -16,6 +16,7 @@ import CollieGallery
 import SwiftLinkPreview
 import ImageSlideshow
 
+
 protocol CustomCellUpdater: class { // the name of the protocol you can put any
     func updateTableView()
 }
@@ -132,7 +133,7 @@ class LatestCell: UITableViewCell {
     let tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
     
     //let slp = SwiftLinkPreview.init()
-     private let slp = SwiftLinkPreview(cache: InMemoryCache())
+     private var slp = SwiftLinkPreview(cache: InMemoryCache())
      private var result = SwiftLinkPreview.Response()
     
     
@@ -279,8 +280,6 @@ class LatestCell: UITableViewCell {
     
     var latestStatus: LatestStatus? {
         didSet {
-            
-            
 
             statusImage0.layer.cornerRadius = 8.0
             statusImage1.layer.cornerRadius = 8.0
@@ -595,7 +594,7 @@ class LatestCell: UITableViewCell {
                 self.result = cached
                 self.setData()
                 result.forEach { print("\($0):", $1) }
-                
+
             } else {
                 self.slp.preview(
                     textFieldText!,
@@ -726,9 +725,10 @@ class LatestCell: UITableViewCell {
             //let resource = ImageResource(downloadURL: fileUrl!)
             //statusImage0.kf.setImage(with: resource)
             //statusImage0.sd_setImage(with: fileUrl, placeholderImage: nil)
-            statusImage0.sd_setImage(with: fileUrl, completed: {image, error, cacheType, imageURL in
+            
+            statusImage0.sd_setImage(with: fileUrl, placeholderImage: nil, options: SDWebImageOptions.scaleDownLargeImages, completed: {image, error, cacheType, imageURL in
                 //write code
-                })
+            })
             
             
             //https://github.com/gmunhoz/CollieGallery
@@ -744,16 +744,12 @@ class LatestCell: UITableViewCell {
         }
         if (latestStatus?.statusImageUrl1 != nil){
             let fileUrl = URL(string: (latestStatus?.statusImageUrl1)!)
-//            let resource = ImageResource(downloadURL: fileUrl!)
-//            statusImage1.kf.setImage(with: resource)
             statusImage1.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.statusImageUrl1)!)
             pictures.append(picture)
         }
         if (latestStatus?.statusImageUrl2 != nil){
             let fileUrl = URL(string: (latestStatus?.statusImageUrl2)!)
-//            let resource = ImageResource(downloadURL: fileUrl!)
-//            statusImage2.kf.setImage(with: resource)
             statusImage2.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.statusImageUrl2)!)
             pictures.append(picture)
@@ -761,8 +757,6 @@ class LatestCell: UITableViewCell {
         }
         if (latestStatus?.statusImageUrl3 != nil){
             let fileUrl = URL(string: (latestStatus?.statusImageUrl3)!)
-//            let resource = ImageResource(downloadURL: fileUrl!)
-//            statusImage3.kf.setImage(with: resource)
             statusImage3.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.statusImageUrl3)!)
             pictures.append(picture)
@@ -783,8 +777,6 @@ class LatestCell: UITableViewCell {
         
         if (latestStatus?.RTmediaString0 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString0)!)
-//            let resource = ImageResource(downloadURL: fileUrl!)
-//            RTstatusImage0.kf.setImage(with: resource)
             RTstatusImage0.sd_setImage(with: fileUrl, placeholderImage: nil)
             
             //https://github.com/gmunhoz/CollieGallery
@@ -799,29 +791,23 @@ class LatestCell: UITableViewCell {
         }
         if (latestStatus?.RTmediaString1 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString1)!)
-//            let resource = ImageResource(downloadURL: fileUrl!)
-//            RTstatusImage1.kf.setImage(with: resource)
             RTstatusImage1.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.RTmediaString1)!)
             pictures.append(picture)
         }
         if (latestStatus?.RTmediaString2 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString2)!)
-//            let resource = ImageResource(downloadURL: fileUrl!)
-//            RTstatusImage2.kf.setImage(with: resource)
             RTstatusImage2.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.RTmediaString2)!)
             pictures.append(picture)
         }
         if (latestStatus?.RTmediaString3 != nil){
             let fileUrl = URL(string: (latestStatus?.RTmediaString3)!)
-//            let resource = ImageResource(downloadURL: fileUrl!)
-//            RTstatusImage3.kf.setImage(with: resource)
             RTstatusImage3.sd_setImage(with: fileUrl, placeholderImage: nil)
             let picture = CollieGalleryPicture(url: (latestStatus?.RTmediaString3)!)
             pictures.append(picture)
         }
-    
+        
         
         //if there is a picture of video, remove the url in the textTweet
         if (latestStatus?.statusImageUrl0 != nil || latestStatus?.gifImageViewUrl != nil || (latestStatus?.isAQuote)!){
@@ -1076,6 +1062,7 @@ class LatestCell: UITableViewCell {
             self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             self.blockSwifter?.blockUser(UserTag.screenName(self.printUsername!), includeEntities: true, skipStatus: false, success: {json in
                 print("blocked user")
+                print("blocked clicked: ", json)
 //                if (self.parentViewController is CollectionViewController){
 //                    print("this is in collectionview controller")
 //                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "collectionReload"), object: nil)
@@ -1093,6 +1080,7 @@ class LatestCell: UITableViewCell {
             self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             self.blockSwifter?.reportSpam(for: UserTag.screenName(self.printUsername!), success: {json in
                 print("reported user")
+                print("report clicked: ", json)
                 self.eraseCellDelegate?.blockButtonTapped(cell: self)
                 //self.makeToast("Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", duration: 6.0, position: .center, style: self.style)
                 self.alert(title: "Done", message: "Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", uivc: self.parentViewController!)

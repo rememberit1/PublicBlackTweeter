@@ -311,26 +311,32 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(CollectionViewController.allowedToReload){
-        var categoryArray = fBKeyStringArray
-        let selectedCategory = categoryArray[indexPath.row % changingFirebaseCount]
-        categoryLabel.text = selectedCategory
-        
-        print("selected category: ", selectedCategory)
-        
-        let test1 = self.firebaseDictionary[selectedCategory]?.tweetArray
-        self.changeableTweetsArray = []
-        for eachFBtweet in test1! {
-            self.changeableTweetsArray?.append(eachFBtweet.status!)
-        }
-        
-        self.reusableTableView = ReusableTableView(theTableview, changeableTweetsArray!, self)
-        self.reusableTableView.tableView?.reloadData()
-        self.reusableTableView.tableView?.refreshControl = self.refresher
-        self.scrollToFirstRow()
-        
-        let cellForAlpha = self.mainCollectionView.cellForItem(at: indexPath)
-        cellForAlpha?.alpha = 1
-        //cellForAlpha?.backgroundView = bgColorView// this never deselects
+            var categoryArray = fBKeyStringArray
+            let selectedCategory = categoryArray[indexPath.row % changingFirebaseCount]
+            categoryLabel.text = selectedCategory
+            
+            print("selected category: ", selectedCategory)
+            
+            let test1 = self.firebaseDictionary[selectedCategory]?.tweetArray
+            self.changeableTweetsArray = []
+            for eachFBtweet in test1! {
+                self.changeableTweetsArray?.append(eachFBtweet.status!)
+            }
+            
+            self.reusableTableView = ReusableTableView(theTableview, changeableTweetsArray!, self)
+            self.reusableTableView.tableView?.reloadData()
+            if (self.reusableTableView.tableView?.refreshControl == nil){
+                if #available(iOS 10.0, *){
+                self.reusableTableView.tableView?.refreshControl = self.refresher
+                }else{
+                    self.reusableTableView.tableView?.addSubview(self.refresher)
+                }
+            }
+            self.scrollToFirstRow()
+            
+            let cellForAlpha = self.mainCollectionView.cellForItem(at: indexPath)
+            cellForAlpha?.alpha = 1
+            //cellForAlpha?.backgroundView = bgColorView// this never deselects
         }
     }
     
@@ -569,6 +575,11 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                 }
                 CollectionViewController.allowedToReload = true
                 self.dismissLoadingGIF()
+                
+                let deadline = DispatchTime.now() + 1.0
+                DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
+                    self.refresher.endRefreshing()
+                })
             }
             
              let failureHandlerblock: (Error) -> Void = { error in
@@ -896,6 +907,10 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
             self.theTableview.reloadData()
             self.scrollToFirstRow()
             self.dismissLoadingGIF()
+            let deadline = DispatchTime.now() + 1.0
+            DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
+                self.refresher.endRefreshing()
+            })
             CollectionViewController.allowedToReload = true
             
         }

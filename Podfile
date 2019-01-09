@@ -36,6 +36,7 @@ target 'BlackTweeter2' do
     pod 'SwiftyDrop', '4.1.0'
     pod 'ImageSlideshow', '1.5.3'
     pod 'ImageSlideshow/Alamofire', '1.5.3'
+    #pod 'HanekeSwift'
     #pod 'Kingfisher', '~> 4.0'
     #pod 'paper-onboarding'
     #pod 'GiFHUD-Swift'

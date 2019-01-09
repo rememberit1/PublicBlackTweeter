@@ -13,6 +13,7 @@ import SwifteriOS
 import FirebaseMessaging
 import FirebaseInstanceID
 import UserNotifications
+import SDWebImage
 //import GoogleMobileAds
 
 //how to autoarrange text CTRL + I
@@ -33,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     static var onBoardingCompleted: Bool?
     static var eulaCompleted: Bool?
     static var objContentHasBeenBlocked: Bool?
+    
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -66,6 +68,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Messaging.messaging().delegate = self
         Messaging.messaging().shouldEstablishDirectChannel = true
         showPushNotification(application: application)
+        
+        SDImageCache.shared().config.maxCacheAge = 3600 //1 Hour
+        SDImageCache.shared().maxMemoryCost = 1024 * 1024 * 10 //Aprox 10 images
+        
+        SDImageCache.shared().config.shouldCacheImagesInMemory = false //Default True => Store images in RAM cache for Fast performance
+        
+        SDImageCache.shared().config.shouldDecompressImages = false
+        
+        SDWebImageDownloader.shared().shouldDecompressImages = false
+        
+        SDImageCache.shared().config.diskCacheReadingOptions = NSData.ReadingOptions.mappedIfSafe
         
         return true
     }

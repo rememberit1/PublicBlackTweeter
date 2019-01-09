@@ -22,7 +22,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     
     
     @IBOutlet weak var thisTableview: UITableView!
-    var reusableTableView: ReusableTableView!
+    weak var reusableTableView: ReusableTableView!
     
     //@IBOutlet weak var menuButton: UIBarButtonItem!
     
@@ -38,7 +38,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     var universalWasOpen: Bool = false
     
     
-    var avPlayerLayer: AVPlayerLayer!
+    weak var avPlayerLayer: AVPlayerLayer!
     var firstLoad = true
     
     var swifter: Swifter?
@@ -47,10 +47,10 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     var tweetsArray : [JSON] = []
     
     private lazy var refresher: UIRefreshControl = {
-    let refreshControl = UIRefreshControl()
-    refreshControl.tintColor = .white
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
         refreshControl.addTarget(self, action: #selector(clearOutAndRefresh), for: .valueChanged)
-    return refreshControl
+        return refreshControl
     }()
     
     
@@ -201,6 +201,10 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
                 self.alert(title: "Damn...", message: "Yeaaa...so theres a problem with you network 😕.")
             }
             self.dismissLoadingGIF()
+            let deadline = DispatchTime.now() + 1.0
+            DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
+                self.refresher.endRefreshing()
+            })
             
         }
         //check is_quote_status true/false AND check if
@@ -454,9 +458,21 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
         DispatchQueue.main.async{
             self.reusableTableView = ReusableTableView(self.thisTableview, self.latestStatuses, self)
             self.thisTableview.reloadData()
+            
+            if (self.reusableTableView.tableView?.refreshControl == nil){
+                if #available(iOS 10.0, *){
+                    self.reusableTableView.tableView?.refreshControl = self.refresher
+                }else{
+                    self.reusableTableView.tableView?.addSubview(self.refresher)
+                }
+            }
+            
             self.scrollToFirstRow()
             self.dismissLoadingGIF()
-            self.reusableTableView.tableView?.refreshControl = self.refresher
+            let deadline = DispatchTime.now() + 1.0
+            DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
+                self.refresher.endRefreshing()
+            })
         }
     }
     

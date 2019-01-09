@@ -32,11 +32,11 @@ class AttrTextView: UITextView {
         
         // Set initial font attributes for our string
         attrString?.addAttribute(NSAttributedStringKey.font, value: normalFont, range: NSRange(location: 0, length: (textString?.length)!))
-        attrString?.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: (textString?.length)!))
+        //attrString?.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: (textString?.length)!))
         
         // Call a custom set Hashtag and Mention Attributes Function
-        setAttrWithName(attrName: "Hashtag", wordPrefix: "#", color: hashtagColor, text: text, font: hashTagFont)
-        setAttrWithName(attrName: "Mention", wordPrefix: "@", color: mentionColor, text: text, font: mentionFont)
+        setAttrWithName(attrName: "Hashtag", wordPrefix: "#", color: AppConstants.tweeterGreen, text: text, font: hashTagFont)
+        setAttrWithName(attrName: "Mention", wordPrefix: "@", color: AppConstants.tweeterGreen, text: text, font: mentionFont)
         //setAttrWithName(attrName: "Plain", color: UIColor.black, text: text, font: mentionFont)
         
         // Add tap gesture that calls a function tapRecognized when tapped
@@ -53,18 +53,17 @@ class AttrTextView: UITextView {
         
         // Set initial font attributes for our string
         attrString?.addAttribute(NSAttributedStringKey.font, value: normalFont, range: NSRange(location: 0, length: (textString?.length)!))
-        attrString?.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: (textString?.length)!))
+        //attrString?.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: (textString?.length)!))
         
         // Call a custom set Hashtag and Mention Attributes Function
-        setAttrWithName(attrName: "Hashtag", wordPrefix: "#", color: hashtagColor, text: status.textTweet!, font: hashTagFont)
-        setAttrWithName(attrName: "Mention", wordPrefix: "@", color: mentionColor, text: status.textTweet!, font: mentionFont)
+        setAttrWithName(attrName: "Hashtag", wordPrefix: "#", color: AppConstants.tweeterGreen, text: status.textTweet!, font: hashTagFont)
+        setAttrWithName(attrName: "Mention", wordPrefix: "@", color: AppConstants.tweeterGreen, text: status.textTweet!, font: mentionFont)
         //setAttrWithName(attrName: "Plain", color: UIColor.black, text: text, font: mentionFont)
         
         // Add tap gesture that calls a function tapRecognized when tapped
         let tapper = UITapGestureRecognizer(target: self, action: #selector(self.tapRecognized(tapGesture:)))
         addGestureRecognizer(tapper)
     }
-    
     
     
     private func setAttrWithName(attrName: String, wordPrefix: String, color: UIColor, text: String, font: UIFont) {
