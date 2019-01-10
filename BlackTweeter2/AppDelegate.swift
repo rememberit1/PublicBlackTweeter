@@ -34,21 +34,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     static var onBoardingCompleted: Bool?
     static var eulaCompleted: Bool?
     static var objContentHasBeenBlocked: Bool?
+    static var didFirstNetworkPull: Bool?
     
 
-    
+    //This function is ran whenever the app is ran no matter what
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         
         UIApplication.shared.applicationIconBadgeNumber = 1
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         let userDefaults = UserDefaults.standard
-        if userDefaults.bool(forKey: "eulaCompleted"){
+        if userDefaults.bool(forKey: "eulaCompleted"){// Checks if user default is true OR if the value exist.
             AppDelegate.eulaCompleted = true
         }else {
             AppDelegate.eulaCompleted = false
         }
-
+        
         if userDefaults.bool(forKey: "onboardingComplete"){
             AppDelegate.onBoardingCompleted = true
         }else {
@@ -57,10 +59,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         if userDefaults.bool(forKey: "blockObjContent"){
             AppDelegate.objContentHasBeenBlocked = true
+            
         }else {
             AppDelegate.objContentHasBeenBlocked = false
         }
-
+        
+        if userDefaults.bool(forKey: "blockObjContent"){
+            AppDelegate.objContentHasBeenBlocked = true
+            
+        }else {
+            AppDelegate.objContentHasBeenBlocked = false
+        }
+        
+        if !userDefaults.bool(forKey: "didFirstNetworkPull") {
+            AppDelegate.didFirstNetworkPull = false
+            print("did first pull default is false")
+        }else{
+            AppDelegate.didFirstNetworkPull = true
+             print("did first pull default is true")
+        }
+        
         
         buildNavigationDrawerInterface()
         FirebaseApp.configure()
@@ -69,15 +87,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Messaging.messaging().shouldEstablishDirectChannel = true
         showPushNotification(application: application)
         
+        //slight improvement in image memory usage
         SDImageCache.shared().config.maxCacheAge = 3600 //1 Hour
         SDImageCache.shared().maxMemoryCost = 1024 * 1024 * 10 //Aprox 10 images
-        
         SDImageCache.shared().config.shouldCacheImagesInMemory = false //Default True => Store images in RAM cache for Fast performance
-        
         SDImageCache.shared().config.shouldDecompressImages = false
-        
         SDWebImageDownloader.shared().shouldDecompressImages = false
-        
         SDImageCache.shared().config.diskCacheReadingOptions = NSData.ReadingOptions.mappedIfSafe
         
         return true

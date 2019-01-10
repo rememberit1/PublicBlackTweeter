@@ -154,12 +154,10 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "FreeCell", for: indexPath) as! LatestCell
-        
         cell.alpha = 0
         let slideTransfrom = CATransform3DTranslate(CATransform3DIdentity, -75, 0, 0)
         cell.layer.transform = slideTransfrom
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.15, animations: {
             cell.alpha = 1.0
             cell.layer.transform = CATransform3DIdentity
         })

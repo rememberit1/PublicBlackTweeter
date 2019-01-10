@@ -90,7 +90,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate, UINaviga
             return false
         }
 
-        UIView.transition(from: fromView, to: toView, duration: 0.4, options: [.transitionCrossDissolve], completion: nil)
+        UIView.transition(from: fromView, to: toView, duration: 1.4, options: [.transitionCrossDissolve], completion: nil)
          print("going from the same view to A DIFFERENT view")
         return true
     }

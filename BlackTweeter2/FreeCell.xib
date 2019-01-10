@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -49,8 +48,8 @@
                                 <color key="textColor" red="0.0" green="0.51764705879999995" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bf9-Il-fF3" userLabel="Tweeter Info Stack View">
-                                <rect key="frame" x="151" y="44.5" width="214" height="25"/>
+                            <stackView opaque="NO" contentMode="center" distribution="fillProportionally" spacing="4" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bf9-Il-fF3" userLabel="Tweeter Info Stack View">
+                                <rect key="frame" x="163" y="44.5" width="202" height="25"/>
                                 <subviews>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJA-3h-YQY">
                                         <rect key="frame" x="0.0" y="0.0" width="68.5" height="25"/>
@@ -59,19 +58,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJs-eG-dxO">
-                                        <rect key="frame" x="76.5" y="0.0" width="67" height="25"/>
+                                        <rect key="frame" x="72.5" y="0.0" width="67" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33656548600000002" green="0.22594173749999999" blue="0.1102077363" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="•2hr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2d7-mg-9VD">
-                                        <rect key="frame" x="151.5" y="0.0" width="24.5" height="25"/>
+                                        <rect key="frame" x="143.5" y="0.0" width="24.5" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" red="0.33656548600000002" green="0.22594173749999999" blue="0.1102077363" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBa-GH-3n0">
-                                        <rect key="frame" x="184" y="0.0" width="30" height="25"/>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="eBa-GH-3n0">
+                                        <rect key="frame" x="172" y="0.0" width="30" height="25"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <state key="normal" title=" ^^ ">
                                             <color key="titleColor" red="0.24939853000000001" green="0.16310585599999999" blue="0.081510339249999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -192,6 +192,8 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     }
     
     func fetchHomeTimeline() { //how to get more than 200 tweets https://github.com/ttezel/twit/issues/318
+        var allBlockedAccounts: [String] = []
+        let defaults = UserDefaults.standard
         
         let failureHandler: (Error) -> Void = { error in
             print("Yeaaa...so theres a problem with you network 😕. ", error.localizedDescription)
@@ -205,13 +207,39 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
             DispatchQueue.main.asyncAfter(deadline: deadline, execute: {
                 self.refresher.endRefreshing()
             })
-            
         }
-        //check is_quote_status true/false AND check if
+        let failureHandlerblock: (Error) -> Void = { error in
+            print("blocked fail")
+        }
+        
+        if (AppDelegate.didFirstNetworkPull == false){
+            self.swifter?.getBlockedUsersIDsBen(stringifyIDs: "true", cursor: nil, success: { json in
+                // Successfully fetched timeline, so lets create and push the table view
+                
+                if (json["ids"].array?.isEmpty == false){
+                    print("we have blocked: ", json["ids"].array ?? [])
+                    for blockedUser in json["ids"].array! {
+                        allBlockedAccounts.append(blockedUser.string!)
+                    }
+                    
+                    defaults.set(allBlockedAccounts, forKey: "allBlockedAccounts")
+                    defaults.synchronize()
+                    let blockedArray = defaults.stringArray(forKey: "allBlockedAccounts") ?? [String]()
+                    print("we have blocked: ", blockedArray)
+                }
+                
+                AppDelegate.didFirstNetworkPull = true
+                let btUserDefaults = UserDefaults.standard
+                btUserDefaults.set(AppDelegate.didFirstNetworkPull, forKey: "didFirstNetworkPull")
+                btUserDefaults.synchronize()
+                
+            }, failure: failureHandlerblock)
+        }
         
         self.swifter?.getHomeTimeline(count:151, sinceID: nil, maxID: nil, trimUser: false, contributorDetails: true, includeEntities: true, tweetMode: TweetMode.extended,
                                       success: { json in
                                         // Successfully fetched timeline, so lets create and push to the table view
+                                        allBlockedAccounts = defaults.stringArray(forKey: "allBlockedAccounts") ?? [String]()
                                         print("ben! succes in getting timeline")
                                         print("json", json)
                                         guard let tweets = json.array else { return }
@@ -224,6 +252,11 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
                                             
                                             if(tweet["possibly_sensitive"].bool == true && AppDelegate.objContentHasBeenBlocked!){
                                                 print("this tweet is sensitive so we're leaving.")
+                                                continue
+                                            }
+                                            
+                                            if(allBlockedAccounts.contains(tweet["user"]["id_str"].string!)){
+                                                print("this tweet is by a blocked user so we're leaving.")
                                                 continue
                                             }
                                             

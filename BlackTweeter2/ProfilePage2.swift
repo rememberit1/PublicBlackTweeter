@@ -546,11 +546,11 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         if let name = json["name"].string {
             //  print("json.array ", json)
             var newName = name
-            if (newName.count > 20){
-                newName = newName.substring(to:newName.index(name.startIndex, offsetBy: 20))
-                newName = newName + "..."
-            }
-            fullNameHead.text = name
+//            if (newName.count > 20){
+//                newName = newName.substring(to:newName.index(name.startIndex, offsetBy: 20))
+//                newName = newName + "..."
+//            }
+            fullNameHead.text = newName
             //mainFullName.text = newName
         }
         if let screenName = json["screen_name"].string {
@@ -960,7 +960,7 @@ extension ProfilePage2: UITableViewDataSource, UITableViewDelegate {
         cell.alpha = 0
         let slideTransfrom = CATransform3DTranslate(CATransform3DIdentity, -75, 0, 0)
         cell.layer.transform = slideTransfrom
-        UIView.animate(withDuration: 0.1, animations: {
+        UIView.animate(withDuration: 0.15, animations: {
             cell.alpha = 1.0
             cell.layer.transform = CATransform3DIdentity
         })

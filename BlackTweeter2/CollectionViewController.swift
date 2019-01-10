@@ -592,6 +592,8 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
             //This is wrong ... the category is the name of the topic and the oneCategoryTweetsStringArray has ALLL the info pertaining to that topic
             var realTweetArray: [String] = []
             var allCategoryTweetsJSONArray : [JSON] = []
+            var allBlockedAccounts: [String] = []
+            let defaults = UserDefaults.standard
             
             
             for (category, tweetsArrayOneCat) in self.firebaseDictionary {
@@ -603,14 +605,36 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                 }
             }
             
-            self.swifter?.getBlockedUsersIDsBen(stringifyIDs: "true", cursor: nil, success: { json in
-                // Successfully fetched timeline, so lets create and push the table view
-                print("blocked: ", json["ids"].array ?? [])
-                
-            }, failure: failureHandlerblock)
+            //this only has to be done on the first download of app because everytime we block a new user, we will add him to our user default array
+            if (AppDelegate.didFirstNetworkPull == false){
+                self.swifter?.getBlockedUsersIDsBen(stringifyIDs: "true", cursor: nil, success: { json in
+                    // Successfully fetched timeline, so lets create and push the table view
+                    
+                    if (json["ids"].array?.isEmpty == false){
+                        print("we have blocked: ", json["ids"].array ?? [])
+                        for blockedUser in json["ids"].array! {
+                            allBlockedAccounts.append(blockedUser.string!)
+                        }
+                        
+                        defaults.set(allBlockedAccounts, forKey: "allBlockedAccounts")
+                        defaults.synchronize()
+                        let blockedArray = defaults.stringArray(forKey: "allBlockedAccounts") ?? [String]()
+                        print("we have blocked: ", blockedArray)
+                    }
+                    
+                    AppDelegate.didFirstNetworkPull = true
+                    let btUserDefaults = UserDefaults.standard
+                    btUserDefaults.set(AppDelegate.didFirstNetworkPull, forKey: "didFirstNetworkPull")
+                    btUserDefaults.synchronize()
+                    
+                    self.theTableview.tableFooterView = UIView.init()
+                }, failure: failureHandlerblock)
+            }
             
             self.swifter?.lookupTweets(for: realTweetArray, includeEntities: true, map: false, tweetMode: TweetMode.extended, success: { json in
+                
                 // Successfully fetched timeline, so lets create and push the table view
+                allBlockedAccounts = defaults.stringArray(forKey: "allBlockedAccounts") ?? [String]()
                 guard var tweets = json.array else { return }
                 allCategoryTweetsJSONArray = tweets
                 
@@ -618,11 +642,17 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                 print("number of gotten tweets \(tweets.count)")
                 
                 for var tweet in allCategoryTweetsJSONArray {
-                    
-                    if(tweet["possibly_sensitive"].bool == true && AppDelegate.objContentHasBeenBlocked!){
+                    if(tweet["possibly_sensitive"].bool == true && AppDelegate.objContentHasBeenBlocked!)//|| user is blocked//
+                    {
                         print("this tweet is sensitive so we're leaving.")
                         continue
                     }
+                    
+                    if(allBlockedAccounts.contains(tweet["user"]["id_str"].string!)){
+                        print("this tweet is by a blocked user so we're leaving.")
+                        continue
+                    }
+                    //if (tweet["user"]["id_str"].string )
 
                     
                     var isARetweet: Bool = false
@@ -697,7 +727,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                             for myEntry in urlString {
                                 if (myEntry.key == "media") {
                                     let smallJson = myEntry.value
-                                    
+                                    //print("we have array?: ", smallJson[0])
                                     if (smallJson[0]["type"].string == "photo") {
                                         if let mediaStringZero = smallJson[0]["media_url_https"].string {
                                             RTmediaString0 = ""

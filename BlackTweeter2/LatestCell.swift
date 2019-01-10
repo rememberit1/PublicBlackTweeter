@@ -359,7 +359,13 @@ class LatestCell: UITableViewCell {
             }
             
             if let fullName = latestStatus?.textFullName{
-                self.cellFullName.text = fullName
+                var newName = fullName
+                if (newName.count > 20){
+                    newName = newName.substring(to:newName.index(fullName.startIndex, offsetBy: 20)) + "..."
+                    //newName = newName + "..."
+                }
+                //fullNameHead.text = newName
+                self.cellFullName.text = newName
             }else{
                 self.cellFullName.text = ""
             }
@@ -529,7 +535,7 @@ class LatestCell: UITableViewCell {
     
     private func setUpSlideshow() {
         self.slideshow?.backgroundColor = UIColor.white
-        self.slideshow?.slideshowInterval = 15.0
+        self.slideshow?.slideshowInterval = 8.0
         self.slideshow?.pageControlPosition = PageControlPosition.hidden
         self.slideshow?.contentScaleMode = .scaleAspectFit
     }
@@ -1061,6 +1067,11 @@ class LatestCell: UITableViewCell {
             print("block button clicked")
             self.blockSwifter = Swifter(consumerKey: "n1iDWOsQDwP94rGhU6OZTUjZg", consumerSecret: "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3", oauthToken: "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW", oauthTokenSecret: "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ")
             self.blockSwifter?.blockUser(UserTag.screenName(self.printUsername!), includeEntities: true, skipStatus: false, success: {json in
+                let defaults = UserDefaults.standard
+                var blockedArray = defaults.stringArray(forKey: "allBlockedAccounts") ?? [String]()
+                blockedArray.append(json["id_str"].string!)
+                defaults.set(blockedArray, forKey: "allBlockedAccounts")
+                defaults.synchronize()
                 print("blocked user")
                 print("blocked clicked: ", json)
 //                if (self.parentViewController is CollectionViewController){
@@ -1081,6 +1092,13 @@ class LatestCell: UITableViewCell {
             self.blockSwifter?.reportSpam(for: UserTag.screenName(self.printUsername!), success: {json in
                 print("reported user")
                 print("report clicked: ", json)
+                let defaults = UserDefaults.standard
+                var blockedArray = defaults.stringArray(forKey: "allBlockedAccounts") ?? [String]()
+                blockedArray.append(json["id_str"].string!)
+                defaults.set(blockedArray, forKey: "allBlockedAccounts")
+                defaults.synchronize()
+                print("blocked user")
+                print("blocked clicked: ", json)
                 self.eraseCellDelegate?.blockButtonTapped(cell: self)
                 //self.makeToast("Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", duration: 6.0, position: .center, style: self.style)
                 self.alert(title: "Done", message: "Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", uivc: self.parentViewController!)
@@ -1217,6 +1235,7 @@ class LatestCell: UITableViewCell {
         
         swifter.destroyTweet(forID: printTweetId!, trimUser: false, tweetMode: TweetMode.extended, success: { json in
             // print(json)
+           // self.eraseCellDelegate?.blockButtonTapped(cell: self)
             self.parentViewController?.toastMessage("Poof! Gone")
             self.reloadTalbeveiwInsideOfCell()
             self.alpha = 0.1
