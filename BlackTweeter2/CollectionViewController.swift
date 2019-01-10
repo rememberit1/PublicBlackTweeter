@@ -571,7 +571,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                 if (error.localizedDescription.contains("You might be connecting to a server that is pretending")){
                     self.alert(title: "Watch your back...", message: "Aight so boom...the network you're on has strict security rules, might be watched and is blocking Twitter 👀")
                 } else {
-                    self.alert(title: "Damn...", message: "Yeaaa...so theres a problem with you network 😕.")
+                    self.alert(title: "Damn...", message: "Yeaaa...so theres a problem with you network or you may have an older version 😕.")
                 }
                 CollectionViewController.allowedToReload = true
                 self.dismissLoadingGIF()
