@@ -80,6 +80,10 @@ class CollectionViewController: BaseViewController, CollieGalleryDelegate, UICol
         theTableview.isScrollEnabled = true
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: NSNotification.Name(rawValue: "notificationName"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showVideo(_:)), name: NSNotification.Name(rawValue: "videoNotification"), object: playerViewController.player?.currentItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(showGallery(_:)), name: NSNotification.Name(rawValue: "notificationGallery"), object: nil)
+        
+        
+        
         print("collection view visible")
     }
     
@@ -144,13 +148,36 @@ class CollectionViewController: BaseViewController, CollieGalleryDelegate, UICol
         }
     }
     
-    func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
-        //gallery.presentInViewController(self)
-        gallery.present(self, animated: true, completion: nil)
-        gallery.scrollToIndex(index)
-        
-        print("stack this is happening in reusabletable view")
+    @objc func showGallery(_ notification: NSNotification){
+        print("received gallery info: ",notification.userInfo ?? "")
+        if let dict = notification.userInfo as NSDictionary? {
+            weak var receivedGallery = dict["collieGallery"] as? CollieGallery
+            if (receivedGallery != nil){
+                if let recievedInt = dict["pictureInt"] as? Int{
+                    print("the int is ", recievedInt, "and my gallery is ", receivedGallery!.description)
+                    weak var myReceivedGallery = receivedGallery
+                    myReceivedGallery?.presentInViewController(self.navigationController!)
+                    myReceivedGallery?.scrollToIndex(recievedInt)
+                    receivedGallery = nil
+                    myReceivedGallery = nil
+                }
+                //                let videoPlayer = AVPlayer(url: URL(string: (id))!)
+                //                playerViewController.player = videoPlayer
+                //                self.present(playerViewController, animated: true){
+                //                    videoPlayer.play()
+            }
+        }
     }
+    
+    
+    
+//    func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
+//        gallery.presentInViewController(self)
+//        gallery.present(self, animated: true, completion: nil)
+//        gallery.scrollToIndex(0)
+//
+//        print("stack this is happening in reusabletable view")
+//    }
 
     
     override func viewWillDisappear(_ animated: Bool) {

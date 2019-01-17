@@ -189,7 +189,8 @@ class LatestCell: UITableViewCell {
         cellUsername.isUserInteractionEnabled = true
         cellUsername.addGestureRecognizer(tapNakedRecognizer)
         
-        //let galleryTapGestureRecog = UITapGestureRecognizer(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)))
+//        let galleryTapGestureRecog = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 0)
+//        let RTgalleryTapGestureRecog = UITapGestureRecognizer(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)))
         let galleryTapGestureRecog = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 0)
         let galleryTapGestureRecog1 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 1)
         let galleryTapGestureRecog2 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 2)
@@ -200,9 +201,10 @@ class LatestCell: UITableViewCell {
         let RTgalleryTapGestureRecog3 = GalleryTapGestureRecog(target: self, action: #selector(statusImageClick(galleryTapGestureRecog:)), int: 3)
 //        AllPicsStackView?.isUserInteractionEnabled = true
 //        AllPicsStackView?.addGestureRecognizer(galleryTapGestureRecog)
-        
+//
 //        RTAllPicsStackView?.isUserInteractionEnabled = true
 //        RTAllPicsStackView?.addGestureRecognizer(RTgalleryTapGestureRecog)
+        
         
         let videoTapGestureRecog = UITapGestureRecognizer(target: self, action: #selector(videoPlayerSuperviewClick(videoGestureRecognizer:)))
         videoPlayerSuperview?.isUserInteractionEnabled = true
@@ -870,11 +872,15 @@ class LatestCell: UITableViewCell {
         let options = CollieGalleryOptions()
         options.parallaxFactor = 0.8
         options.maximumZoomScale = 2.5
-        // options.gapBetweenPages = 20
+         options.gapBetweenPages = 20
         let gallery = CollieGallery(pictures: pictures, options: options)
-        if (self.collieDelegate != nil){
-            self.collieDelegate?.gallery!(gallery, indexChangedTo: galleryTapGestureRecog.int!)
-        }
+//        if (self.collieDelegate != nil){
+//            self.collieDelegate?.gallery!(gallery, indexChangedTo: galleryTapGestureRecog.int!)
+//            self.collieDelegate?.gallery!(gallery, indexChangedTo: 0)
+//        }
+      //  galleryTapGestureRecog.int = 0
+        print("my gallery int ", galleryTapGestureRecog.int as! Int)
+        showGalleryReal(pictureInt: galleryTapGestureRecog.int!, collieGallery: gallery)
     }
     
     @objc func videoPlayerSuperviewClick(videoGestureRecognizer: UITapGestureRecognizer){
@@ -895,22 +901,30 @@ class LatestCell: UITableViewCell {
     
     
     
-    func playExternalVideo (gifImageUrl: String) {
-        let videoURL = URL(string: (gifImageUrl))
-        let player = AVPlayer(url: videoURL!)
-        let playerViewController = AVPlayerViewController()
-        
-        //playerViewController.player = player
-//        self.parentViewController?.present(playerViewController, animated: true, completion: {() -> Void in
-//            playerViewController.player?.play()
-//        })
-        
-        NotificationCenter.default.addObserver(forName:NSNotification.Name.AVPlayerItemDidPlayToEndTime,object: nil, queue:nil){
-            [weak player, weak playerViewController] notification in
-            playerViewController?.player = player
-            player?.seek(to: kCMTimeZero)
-            player?.play()
-        }
+//    func playExternalVideo (gifImageUrl: String) {
+//        let videoURL = URL(string: (gifImageUrl))
+//        let player = AVPlayer(url: videoURL!)
+//        let playerViewController = AVPlayerViewController()
+//
+//        //playerViewController.player = player
+////        self.parentViewController?.present(playerViewController, animated: true, completion: {() -> Void in
+////            playerViewController.player?.play()
+////        })
+//
+//        NotificationCenter.default.addObserver(forName:NSNotification.Name.AVPlayerItemDidPlayToEndTime,object: nil, queue:nil){
+//            [weak player, weak playerViewController] notification in
+//            playerViewController?.player = player
+//            player?.seek(to: kCMTimeZero)
+//            player?.play()
+//        }
+//    }
+    
+    func sendRanomNotification(){
+        var myStringValue: String? = "myStringValue"
+        let stringDataDict:[String: String] = ["myStringKey": myStringValue!]
+        print("sending random notifification")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: stringDataDict)
+        myStringValue = nil
     }
     
     func playExternalVideo2(gifImageUrl: String){
@@ -922,16 +936,11 @@ class LatestCell: UITableViewCell {
         videoDict = nil
     }
     
-    func sendRanomNotification(){
-        var myStringValue: String? = "myStringValue"
-        let stringDataDict:[String: String] = ["myStringKey": myStringValue!]
-        print("sending random notifification")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: stringDataDict)
-        myStringValue = nil
+    func showGalleryReal(pictureInt: Int, collieGallery: CollieGallery){
+        let galleryDict = ["pictureInt": pictureInt, "collieGallery": collieGallery] as [String : Any]
+        //print("the int is ", pictureInt, "and my gallery is ", collieGallery.description)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationGallery"), object: nil, userInfo: galleryDict)
     }
-    
-    
-    
     
     
     func backgroundClicked (){
