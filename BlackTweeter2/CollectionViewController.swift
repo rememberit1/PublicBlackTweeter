@@ -23,7 +23,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     
     @IBOutlet weak var labelBackground: UIView!
     @IBOutlet weak var theTableview: UITableView!
-    var reusableTableView: ReusableTableView!
+     var reusableTableView: ReusableTableView!
     var mainCount: Int = 0
     
     @IBOutlet weak var categoryLabel: UILabel!
@@ -61,6 +61,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     private let reuseIdentifier = "collectionCell"
     var changeableTweetsArray: [LatestStatus]?
     static var allowedToReload = true
+    var myStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
     private lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -75,13 +76,19 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         self.navigationController?.navigationBar.tintAdjustmentMode = .automatic
         
         theTableview.isScrollEnabled = true
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: NSNotification.Name(rawValue: "notificationName"), object: nil)
         print("collection view visible")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("leaving collection view")
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "notificationName"), object: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.theTableview.tableFooterView = UIView.init()
-
+       // self.theTableview.tableFooterView = UIView.init()
+        
         if (tokenDictionary != nil){
             self.displayLoadingGIF()
         }
@@ -103,11 +110,22 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         self.startTimer()
         setUpMenuButton()
         initNavigationItemTitleView()
-        //NotificationCenter.default.addObserver(self, selector: #selector(CollectionViewController.objcPureReload), name: NSNotification.Name(rawValue: "collectionReload"), object: nil)
+
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        print("leaving collection view")
+    @objc func handleNotification(_ notification: NSNotification){
+        print(notification.userInfo ?? "")
+        if let dict = notification.userInfo as NSDictionary? {
+            if let id = dict["myStringKey"] as? String{
+                print("my received random string in collectionview:", id)
+            }
+        }
+    }
+    
+
+    
+    override func viewWillDisappear(_ animated: Bool) {
+      //  NotificationCenter.default.removeObserver(self.observer)
     }
     
     func hideView() {
@@ -318,12 +336,13 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
             print("selected category: ", selectedCategory)
             
             let test1 = self.firebaseDictionary[selectedCategory]?.tweetArray
-            self.changeableTweetsArray = []
+            changeableTweetsArray = []
             for eachFBtweet in test1! {
                 self.changeableTweetsArray?.append(eachFBtweet.status!)
             }
-            
-            self.reusableTableView = ReusableTableView(theTableview, changeableTweetsArray!, self)
+            weak var thisController = self
+            self.reusableTableView = ReusableTableView(theTableview, changeableTweetsArray!, thisController!)
+            //self.reusableTableView = ReusableTableView(theTableview, changeableTweetsArray!)
             self.reusableTableView.tableView?.reloadData()
             if (self.reusableTableView.tableView?.refreshControl == nil){
                 if #available(iOS 10.0, *){
@@ -534,7 +553,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         }
         
         if (tokenDictionary != nil) {
-            self.swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY, oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
+            self.swifter = Swifter(consumerKey: AppDelegate.TWITTER_CONSUMER_KEY, consumerSecret: AppDelegate.TWITTER_CONSUMER_SECRET_KEY, oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
             
             
             firebaseDispatch.notify(queue: .main) {
@@ -627,7 +646,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                     btUserDefaults.set(AppDelegate.didFirstNetworkPull, forKey: "didFirstNetworkPull")
                     btUserDefaults.synchronize()
                     
-                    self.theTableview.tableFooterView = UIView.init()
+                   // self.theTableview.tableFooterView = UIView.init()
                 }, failure: failureHandlerblock)
             }
             
@@ -778,7 +797,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                                 }
                             }
                         }
-                        print ("quoteben ", RTText!, "--", RTFullName!, "--", RTUsername!, "--", RTmediaString0, "--", RTmediaString1)
+                      //  print ("quoteben ", RTText!, "--", RTFullName!, "--", RTUsername!, "--", RTmediaString0, "--", RTmediaString1)
                     }
                     
                     
@@ -794,7 +813,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
                             if (myEntry.key == "urls") {
                                 let smallJson = myEntry.value
                                 if let urlStringZero = smallJson[0]["expanded_url"].string {
-                                    print("urlStringzero: ", urlStringZero)
+                                   // print("urlStringzero: ", urlStringZero)
                                     regularString = urlStringZero
                                 }
                             }
@@ -931,8 +950,9 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
             self.categoryLabel.text = self.firstFirebaseCategory
                 
            // }
-            
-            self.reusableTableView = ReusableTableView(self.theTableview, self.changeableTweetsArray!, self)
+            weak var thisController = self
+            self.reusableTableView = ReusableTableView(self.theTableview, self.changeableTweetsArray!, thisController!)
+            //self.reusableTableView = ReusableTableView(self.theTableview, self.changeableTweetsArray!)
             
             self.theTableview.reloadData()
             self.scrollToFirstRow()
@@ -1001,16 +1021,16 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     // THIS IS NOT A SEGUE. YOU JUST PUSHING A NEW INSTANCE OF PROFILE VIEW
     func goToProfilePage(userID dataobjectUID: String, profileImage dataProfileImage: UIImageView) {
         //self.performSegueWithIdentifier("showComments", sender:dataobject )
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let profileVC = storyboard.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
-        profileVC.userId = dataobjectUID
-        self.navigationController?.pushViewController(profileVC, animated: true)
+        
+        weak var profileVC = self.myStoryboard.instantiateViewController(withIdentifier: "RealProfilePage") as? ProfilePage2
+        profileVC?.userId = dataobjectUID
+        self.navigationController?.pushViewController(profileVC!, animated: true)
         print("going to profile in collection view")
     }
     
     func goQuoteTweet(tweetText dataTweetText: String, username dataUsername: String) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let writeViewController = storyboard.instantiateViewController(withIdentifier: "WriteViewController") as! WriteViewController
+        self.myStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let writeViewController = myStoryboard.instantiateViewController(withIdentifier: "WriteViewController") as! WriteViewController
         writeViewController.initTweetText = dataTweetText
         writeViewController.initUsername = dataUsername
         self.navigationController?.pushViewController(writeViewController, animated: true)

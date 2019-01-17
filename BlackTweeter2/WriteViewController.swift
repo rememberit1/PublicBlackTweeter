@@ -146,7 +146,7 @@ class WriteViewController: BaseViewController, UITextViewDelegate, UIImagePicker
         super.viewDidLoad()
         sarcasmCheckbox.delegate = self
         
-        self.swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY , oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
+        self.swifter = Swifter(consumerKey: AppDelegate.TWITTER_CONSUMER_KEY, consumerSecret: AppDelegate.TWITTER_CONSUMER_SECRET_KEY , oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
         
         let failureHandler: (Error) -> Void = { error in
             print("Yeaaa...so theres a problem with you network 😕.")
@@ -193,6 +193,10 @@ class WriteViewController: BaseViewController, UITextViewDelegate, UIImagePicker
         
     }
     
+    deinit {
+        print("ben deinit in writeview controller")
+        
+    }
     
     func randomizTextview(textview: UITextView) {
         let result = textview.text.characters.map {

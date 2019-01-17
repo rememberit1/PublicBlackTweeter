@@ -381,7 +381,9 @@ open class ImageSlideshow: UIView {
         if scrollViewPage != page {
             // current page has changed, zoom out this image
             if slideshowItems.count > scrollViewPage {
+                if (slideshowItems[scrollViewPage] != nil){
                 slideshowItems[scrollViewPage].zoomOut()
+                }
             }
         }
 

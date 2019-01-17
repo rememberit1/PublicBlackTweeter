@@ -12,15 +12,15 @@ import UIKit
 import SwifteriOS
 
 //https://stackoverflow.com/questions/30483104/presenting-uialertcontroller-from-uitableviewcell
-extension UIView {
-    var parentViewController: UIViewController? {
-        var parentResponder: UIResponder? = self
-        while parentResponder != nil {
-            parentResponder = parentResponder!.next
-            if parentResponder is UIViewController {
-                return parentResponder as! UIViewController!
-            }
-        }
-        return nil
-    }
-}
+//extension UIView {
+//    weak var parentViewController: UIViewController? {
+//        weak var parentResponder: UIResponder? = self
+//        while parentResponder != nil {
+//            parentResponder = parentResponder!.next
+//            if parentResponder is UIViewController {
+//                return parentResponder as! UIViewController!
+//            }
+//        }
+//        return nil
+//    }
+//}

@@ -17,22 +17,7 @@ import SwiftLinkPreview
 import ImageSlideshow
 
 
-protocol CustomCellUpdater: class { // the name of the protocol you can put any
-    func updateTableView()
-}
-protocol EraseCellDelegate: class {
-    func blockButtonTapped(cell: LatestCell)
-}
-
-class GalleryTapGestureRecog : UITapGestureRecognizer {
-    var int : Int?
-    // any more custom variables here
-    
-    init(target: AnyObject?, action: Selector, int : Int?) {
-        super.init(target: target, action: action)
-        self.int = int
-    }
-}
+ //alertBlock(title: "Report", message: "Report A User or Content", uivc: parentViewController!)
 
 class LatestCell: UITableViewCell {
     
@@ -44,6 +29,7 @@ class LatestCell: UITableViewCell {
     
     @IBOutlet weak var adBar: UILabel!
     
+    @IBOutlet weak var randomButton: UIButton!
     @IBOutlet weak var cellLatestTweet: AttrTextView!
     @IBOutlet weak var cellFullName: UILabel!
     @IBOutlet weak var RetweetedByLabel: UILabel!
@@ -51,9 +37,7 @@ class LatestCell: UITableViewCell {
     @IBOutlet weak var cellTimestamp: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var AllPicsStackView: UIStackView!
-//    @IBOutlet weak var SecondPicImageView: UIImageView!
     @IBOutlet weak var ThreeAndFourStackView: UIStackView!
-//    @IBOutlet weak var FourthImageView: UIImageView!
     @IBOutlet weak var gifStackView: UIStackView!
     
     @IBOutlet weak var statusImage0: UIImageView!
@@ -111,7 +95,7 @@ class LatestCell: UITableViewCell {
     var printUsername: String?
 
     let profileJpgString: String = "_bigger.jpg"
-    var swifter: Swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY, oauthToken: OAUTH_TOKEN, oauthTokenSecret: OAUTH_TOKEN_SECRET)
+    var swifter: Swifter = Swifter(consumerKey: AppDelegate.TWITTER_CONSUMER_KEY, consumerSecret: AppDelegate.TWITTER_CONSUMER_SECRET_KEY, oauthToken: AppDelegate.OAUTH_TOKEN, oauthTokenSecret: AppDelegate.OAUTH_TOKEN_SECRET)
     
     //Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY, oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
     var blockSwifter: Swifter?
@@ -135,11 +119,12 @@ class LatestCell: UITableViewCell {
     //let slp = SwiftLinkPreview.init()
      private var slp = SwiftLinkPreview(cache: InMemoryCache())
      private var result = SwiftLinkPreview.Response()
+    private var newResult = SwiftLinkPreview.Response()
     
     
     @IBAction func blockAction(_ sender: Any) {
-        alertBlock(title: "Report", message: "Report A User or Content", uivc: parentViewController!)
-        //self.cellDelegate?.buttonTapped(cell: self)
+       // alertBlock(title: "Report", message: "Report A User or Content", uivc: parentViewController!)
+
     }
     @IBAction func likeAction(_ sender: UIButton) {
         print("like button clicked")
@@ -168,6 +153,9 @@ class LatestCell: UITableViewCell {
         deleteTweet()
     }
     
+    @IBAction func randomAction(_ sender: Any) {
+        sendRanomNotification()
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -294,7 +282,7 @@ class LatestCell: UITableViewCell {
             videoPlayerSuperview.clipsToBounds = true
             RTVideoSuperView.clipsToBounds = true
             
-            self.swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY, oauthToken: OAUTH_TOKEN, oauthTokenSecret: OAUTH_TOKEN_SECRET)
+            self.swifter = Swifter(consumerKey: AppDelegate.TWITTER_CONSUMER_KEY, consumerSecret: AppDelegate.TWITTER_CONSUMER_SECRET_KEY, oauthToken: AppDelegate.OAUTH_TOKEN, oauthTokenSecret: AppDelegate.OAUTH_TOKEN_SECRET)
 
             //self.getGifButton?.isHidden = false
             RetweetedByLabel.isHidden = true
@@ -346,11 +334,11 @@ class LatestCell: UITableViewCell {
                     myId = tokenDictionary!["realUserId"] as? String
                 }
             } else {
-                if (parentViewController == nil){
-                    alert(title: "Ummmmm", message: "...mmmm There was a problem getting the timeline so far" , uivc: parentViewController!)
-                }
+//                if (parentViewController == nil){
+//                    alert(title: "Ummmmm", message: "...mmmm There was a problem getting the timeline so far" , uivc: parentViewController!)
+//                }
 
-                alert(title: "Ummmmm", message: "Go head and Log in for me" , uivc: parentViewController!)
+               // alert(title: "Ummmmm", message: "Go head and Log in for me" , uivc: parentViewController!)
             }
             
             
@@ -605,8 +593,19 @@ class LatestCell: UITableViewCell {
                 self.slp.preview(
                     textFieldText!,
                     onSuccess: { result in
-                        result.forEach { print("\($0):", $1) }
+                        result.forEach { print("\($0):", $1)
+//                            if($0.rawValue == "images"){
+//                                var picArray = $1 as! [String]
+//                                print("ben has pic array 0: ",picArray[0])
+//                                var myStringArray = [picArray[0]]//[String]()
+//                                //myStringArray.append(picArray[0])
+//                                self.newResult = result
+//                                self.newResult.updateValue(myStringArray, forKey: $0)
+//                                print("ben has is doing a network call")
+//                            }
+                        }
                         self.result = result
+                        //self.result = self.newResult
                         self.setData()
                 },
                     onError: { error in
@@ -840,11 +839,11 @@ class LatestCell: UITableViewCell {
     @objc func profPicClick(tapGestureRecognizer: UITapGestureRecognizer)
     {
         print("profile pic clicked")
-        let transImage = tapGestureRecognizer.view as! UIImageView
+       // let transImage = tapGestureRecognizer.view as! UIImageView
         let fUserId = printUserId
         print("fuserid: ", fUserId)
         if(self.delegate != nil){ //Just to be safe.
-            self.delegate.goToProfilePage(userID: fUserId!, profileImage: transImage )
+            self.delegate.goToProfilePage(userID: fUserId!)
         }else{
             print("self.delegate is nil")
         }
@@ -901,11 +900,28 @@ class LatestCell: UITableViewCell {
         let player = AVPlayer(url: videoURL!)
         let playerViewController = AVPlayerViewController()
         
-        playerViewController.player = player
-        self.parentViewController?.present(playerViewController, animated: true, completion: {() -> Void in
-            playerViewController.player?.play()
-        })
+        //playerViewController.player = player
+//        self.parentViewController?.present(playerViewController, animated: true, completion: {() -> Void in
+//            playerViewController.player?.play()
+//        })
+        
+        NotificationCenter.default.addObserver(forName:NSNotification.Name.AVPlayerItemDidPlayToEndTime,object: nil, queue:nil){
+            [weak player, weak playerViewController] notification in
+            playerViewController?.player = player
+            player?.seek(to: kCMTimeZero)
+            player?.play()
+        }
     }
+    
+    func sendRanomNotification(){
+        var myStringValue: String? = "myStringValue"
+        let stringDataDict:[String: String] = ["myStringKey": myStringValue!]
+        print("sending random notifification")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "notificationName"), object: nil, userInfo: stringDataDict)
+        myStringValue = nil
+    }
+    
+    
     
     
     
@@ -1080,7 +1096,7 @@ class LatestCell: UITableViewCell {
 //                }
                 self.eraseCellDelegate?.blockButtonTapped(cell: self)
                 //self.makeToast("User Now Blocked", duration: 3.0, position: .top, style: self.style)
-                self.alert(title: "Done", message: "User Now Blocked", uivc: self.parentViewController!)
+               // self.alert(title: "Done", message: "User Now Blocked", uivc: self.parentViewController!)
                 
             }, failure: failureHandler)
         }))
@@ -1101,7 +1117,7 @@ class LatestCell: UITableViewCell {
                 print("blocked clicked: ", json)
                 self.eraseCellDelegate?.blockButtonTapped(cell: self)
                 //self.makeToast("Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", duration: 6.0, position: .center, style: self.style)
-                self.alert(title: "Done", message: "Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", uivc: self.parentViewController!)
+              //  self.alert(title: "Done", message: "Now Reported and Blocked. We'll review this Tweet/User and ban them in 24 hours if necessary.", uivc: self.parentViewController!)
             }, failure: failureHandler)
         }))
         
@@ -1224,19 +1240,19 @@ class LatestCell: UITableViewCell {
         if (gifUrl != nil){
             UIPasteboard.general.string = gifUrl
         }
-        self.parentViewController?.toastMessage("Copied GIF Link to Clipboard")
+     //   self.parentViewController?.toastMessage("Copied GIF Link to Clipboard")
     }
     
     func deleteTweet(){
         let failureHandler: (Error) -> Void = { error in
             print("Was unable to delete 😕 because of an error: \(error.localizedDescription)")
-            self.alert(title: "Damn son...", message: "Was unable to delete 😕 because of an error: \(error.localizedDescription)", uivc: self.parentViewController!)
+        //    self.alert(title: "Damn son...", message: "Was unable to delete 😕 because of an error: \(error.localizedDescription)", uivc: self.parentViewController!)
         }
         
         swifter.destroyTweet(forID: printTweetId!, trimUser: false, tweetMode: TweetMode.extended, success: { json in
             // print(json)
            // self.eraseCellDelegate?.blockButtonTapped(cell: self)
-            self.parentViewController?.toastMessage("Poof! Gone")
+        //    self.parentViewController?.toastMessage("Poof! Gone")
             self.reloadTalbeveiwInsideOfCell()
             self.alpha = 0.1
         },    failure: failureHandler)

@@ -92,10 +92,10 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="php-7F-cQR">
-                                <rect key="frame" x="0.0" y="269.5" width="365" height="748"/>
+                                <rect key="frame" x="0.0" y="269.5" width="365" height="718"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NlO-rL-NDg" userLabel="RT Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="365" height="748"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="718"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKE-Aa-ovb" userLabel="RT Top Separator">
                                                 <rect key="frame" x="0.0" y="0.0" width="365" height="2"/>
@@ -126,17 +126,17 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oK2-Wz-6P8">
-                                                <rect key="frame" x="0.0" y="27" width="365" height="186"/>
+                                                <rect key="frame" x="0.0" y="27" width="365" height="156"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qrh-G6-n6S">
-                                                        <rect key="frame" x="0.0" y="29" width="12" height="128"/>
+                                                        <rect key="frame" x="0.0" y="14" width="12" height="128"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="12" id="OOL-BT-0jv"/>
                                                         </constraints>
                                                     </view>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SnL-m9-rJd" userLabel="RT Text View" customClass="AttrTextView" customModule="BlackTweeter2" customModuleProvider="target">
-                                                        <rect key="frame" x="12" y="7.5" width="353" height="171.5"/>
+                                                        <rect key="frame" x="12" y="0.0" width="353" height="156"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -145,7 +145,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWv-fC-ABi" userLabel="RT Video">
-                                                <rect key="frame" x="0.0" y="213" width="365" height="250"/>
+                                                <rect key="frame" x="0.0" y="183" width="365" height="250"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play_icon" translatesAutoresizingMaskIntoConstraints="NO" id="QXC-yU-852">
                                                         <rect key="frame" x="137.5" y="80" width="90" height="90"/>
@@ -163,7 +163,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="WHh-6q-h50" userLabel="RT All Pics Stack View">
-                                                <rect key="frame" x="0.0" y="463" width="365" height="275"/>
+                                                <rect key="frame" x="0.0" y="433" width="365" height="275"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleAspectFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="dWr-KC-8xH">
                                                         <rect key="frame" x="0.0" y="0.0" width="365" height="135.5"/>
@@ -196,14 +196,14 @@
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LRU-rn-mcw">
-                                                <rect key="frame" x="0.0" y="738" width="365" height="8"/>
+                                                <rect key="frame" x="0.0" y="708" width="365" height="8"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="8" id="UsN-f1-jNu"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jvx-hQ-by3" userLabel="RT Bottom Separator">
-                                                <rect key="frame" x="0.0" y="746" width="365" height="2"/>
+                                                <rect key="frame" x="0.0" y="716" width="365" height="2"/>
                                                 <color key="backgroundColor" red="0.64032375809999997" green="0.85388314720000003" blue="0.81840831039999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="u0U-hf-ks0"/>
@@ -221,7 +221,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="e2B-IZ-Zf0">
-                                <rect key="frame" x="0.0" y="1017.5" width="365" height="56.5"/>
+                                <rect key="frame" x="0.0" y="987.5" width="365" height="56.5"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Website Title" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Qmv-0U-h18" customClass="AttrTextView" customModule="BlackTweeter2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="365" height="36"/>
@@ -240,14 +240,14 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S46-bi-mP3" customClass="ImageSlideshow" customModule="ImageSlideshow">
-                                <rect key="frame" x="0.0" y="1074" width="365" height="205"/>
+                                <rect key="frame" x="0.0" y="1044" width="365" height="205"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="205" id="mnh-ge-PBE"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5SZ-4D-aGf">
-                                <rect key="frame" x="0.0" y="1279" width="365" height="275"/>
+                                <rect key="frame" x="0.0" y="1249" width="365" height="275"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play_icon" translatesAutoresizingMaskIntoConstraints="NO" id="pus-S7-G7n">
                                         <rect key="frame" x="137.5" y="92.5" width="90" height="90"/>
@@ -265,7 +265,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DSw-Zv-h8W">
-                                <rect key="frame" x="0.0" y="1554" width="365" height="275"/>
+                                <rect key="frame" x="0.0" y="1524" width="365" height="275"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="DaS-u8-U7d">
                                         <rect key="frame" x="0.0" y="0.0" width="365" height="135.5"/>
@@ -298,7 +298,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="W19-zd-WKq" userLabel="RLR Stack View">
-                                <rect key="frame" x="0.0" y="1829" width="365" height="40"/>
+                                <rect key="frame" x="0.0" y="1799" width="365" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fma-da-xwj">
                                         <rect key="frame" x="0.0" y="0.0" width="61" height="40"/>
@@ -348,7 +348,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="PF2-4d-7fI">
-                                <rect key="frame" x="0.0" y="1869" width="365" height="30"/>
+                                <rect key="frame" x="0.0" y="1839" width="365" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aZq-WF-Zhk" customClass="TWTButton" customModule="BlackTweeter2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="182.5" height="30"/>
@@ -370,6 +370,13 @@
                                     <constraint firstAttribute="height" constant="30" id="sUA-N8-MtB"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T0I-ap-RRz">
+                                <rect key="frame" x="0.0" y="1869" width="365" height="30"/>
+                                <state key="normal" title="Random"/>
+                                <connections>
+                                    <action selector="randomAction:" destination="Rxs-Uh-s1F" eventType="touchUpInside" id="cNg-Sw-M3E"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="PF2-4d-7fI" firstAttribute="leading" secondItem="7xk-zS-27c" secondAttribute="leading" id="1eq-VW-aoG"/>
@@ -431,6 +438,7 @@
                 <outlet property="previewTitle" destination="Qmv-0U-h18" id="1vH-2U-sjk"/>
                 <outlet property="profileImageView" destination="NjC-OA-Dmz" id="Z9A-av-0g2"/>
                 <outlet property="quoteButton" destination="jB8-lu-1oT" id="Loh-K6-gpa"/>
+                <outlet property="randomButton" destination="T0I-ap-RRz" id="10D-fG-TQu"/>
                 <outlet property="regularUrlDescStack" destination="e2B-IZ-Zf0" id="DSu-sL-1Je"/>
                 <outlet property="replyButton" destination="fma-da-xwj" id="F8F-uu-JMk"/>
                 <outlet property="retweetButton" destination="vlc-tv-uuE" id="szV-sl-OEW"/>
@@ -442,7 +450,7 @@
                 <outlet property="trashButton" destination="Adn-Gt-wtW" id="RKm-84-gBJ"/>
                 <outlet property="videoPlayerSuperview" destination="5SZ-4D-aGf" id="T87-ST-7JR"/>
             </connections>
-            <point key="canvasLocation" x="-92" y="855.9220389805098"/>
+            <point key="canvasLocation" x="-94" y="837"/>
         </tableViewCell>
     </objects>
     <resources>

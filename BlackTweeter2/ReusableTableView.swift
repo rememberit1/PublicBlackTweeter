@@ -18,23 +18,41 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     public static var backgroundIsBlurred = false
     
     weak var parentCollectionController: UIViewController?
+    weak var myCollectionViewControllerDelegate: CollectionViewController?
     
     var blurEffectView: UIVisualEffectView?
     var twitterWebview : UIWebView?
     
+    
     weak public var tableView: UITableView?
     
-     var tableViewData: [LatestStatus]?
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    var tableViewData: [LatestStatus]?
+     var storyboard = UIStoryboard(name: "Main", bundle: nil)
+    //static var dummyVC = UIViewController()
     
    // let transition = TransitionAnimator()
-    weak var selectedCell = UITableViewCell()
     static var favoriteSelected:[Bool] = Array(repeating: false, count: 198)
     static var retweetSelected:[Bool] = Array(repeating: false, count: 198)
+    weak var webviewDelegate: UIWebViewDelegate?
     
-    init(_ tv: UITableView, _ data: [LatestStatus], _ pcc: UIViewController)
+    
+     init(_ tv: UITableView, _ data: [LatestStatus])
     {
         super.init()
+        self.tableViewData = data
+        self.tableView = tv
+        
+        self.tableView?.delegate = self
+        self.tableView?.dataSource = self
+        
+        // Register all of your cells
+        self.tableView?.register(UINib(nibName: "FreeCell", bundle: nil), forCellReuseIdentifier: "FreeCell")
+    }
+    
+    //probably should never use
+    convenience init(_ tv: UITableView, _ data: [LatestStatus], _ pcc: UIViewController)
+    {
+        self.init(tv, data)
         tableViewData = data
         tableView = tv
         parentCollectionController = pcc
@@ -44,6 +62,13 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         
         // Register all of your cells
         tableView?.register(UINib(nibName: "FreeCell", bundle: nil), forCellReuseIdentifier: "FreeCell")
+     //   NotificationCenter.default.addObserver(self, selector: #selector(dismissProfile), name: NSNotification.Name("dismissProfile"), object: nil)
+    }
+    
+    deinit {
+        //deinit
+        print("ben! deinit is called in reusable")
+       // NotificationCenter.default.removeObserver(self, name: NSNotification.Name("dismissProfile"), object: nil)
     }
     
 
@@ -54,7 +79,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let latestCell = cell as! LatestCell
+ //       let latestCell = cell as! LatestCell
 //        latestCell.avPlayerLayer?.removeFromSuperlayer()
 //        latestCell.avPlayer = nil
         
@@ -62,43 +87,13 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         //        if (latestCell.statusImage0.image != nil){
         //        latestCell.statusImage0.image = nil
         //        }
-        //        if (latestCell.statusImage1.image != nil){
-        //            latestCell.statusImage1.image = nil
-        //        }
-        //        if (latestCell.statusImage2.image != nil){
-        //            latestCell.statusImage2.image = nil
-        //        }
-        //        if (latestCell.statusImage3.image != nil){
-        //            latestCell.statusImage3.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage0.image != nil){
-        //            latestCell.RTstatusImage0.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage1.image != nil){
-        //            latestCell.RTstatusImage1.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage2.image != nil){
-        //            latestCell.RTstatusImage2.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage3.image != nil){
-        //            latestCell.RTstatusImage3.image = nil
-        //        }
-        //
-        //        if (latestCell.avPlayer != nil){
-        //            latestCell.avPlayer = nil
-        //        }
-        //        if (latestCell.avPlayerLayer != nil){
-        //            latestCell.avPlayerLayer = nil
-        //        }
-        //        if (latestCell.profileImageView.image != nil){
-        //            latestCell.profileImageView.image = nil
-        //        }
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let data = tableViewData?[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "FreeCell", for: indexPath) as! LatestCell
+        
         cell.separatorInset = UIEdgeInsets.zero;
         cell.latestStatus = tableViewData?[indexPath.row]//this is a struct
         
@@ -127,14 +122,12 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
                                hashTagFont: UIFont.systemFont(ofSize: 25),
                                mentionFont: UIFont.systemFont(ofSize: 25))
         if (cell.cellLatestTweet.text.hasPrefix("http")){
-            
         }
         
         cell.cellLatestTweet.dataDetectorTypes = UIDataDetectorTypes.link
         cell.cellLatestTweet.linkTextAttributes = [NSAttributedStringKey.foregroundColor.rawValue: AppConstants.tweeterDarkGreen]
         
         cell.update(data!)
-        
         
         cell.delegate = self
         cell.customCelldelegate = self
@@ -162,7 +155,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
             cell.layer.transform = CATransform3DIdentity
         })
         
-        print("displaying cell: ", indexPath.row)
+       // print("displaying cell: ", indexPath.row)
     }
     
      func blockButtonTapped(cell: LatestCell) {
@@ -208,7 +201,8 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         UIApplication.shared.keyWindow?.addSubview(twitterWebview!)
         
         //self.view.addSubview(webV)
-        twitterWebview?.delegate = self //as UIWebViewDelegate;
+        
+        twitterWebview?.delegate = webviewDelegate //as UIWebViewDelegate;
         let subviewUrl = URL (string: "https://twitter.com/blah/status/\(tweetId)")
         let myURLRequest:URLRequest = URLRequest(url: subviewUrl!)
         twitterWebview?.loadRequest(myURLRequest)
@@ -245,67 +239,109 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     }
     
     @objc func bigButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
-        print("blur tapped")
         
-        if let webviewWithTag = UIApplication.shared.keyWindow?.viewWithTag(101) {
-            webviewWithTag.removeFromSuperview()
-        }
         
-        if let blurWithTag = UIApplication.shared.keyWindow?.viewWithTag(102){
-            blurWithTag.removeFromSuperview()
+     //   if var webviewWithTag = UIApplication.shared.keyWindow?.viewWithTag(101) {
+            
+            print("blur tapped")
+            webviewDelegate = nil
+            twitterWebview?.removeFromSuperview()
+            twitterWebview = nil
+          //  webviewWithTag.removeFromSuperview()
+            
+             // webviewWithTag = UIView()
+  //      }
+        
+ //       if var blurWithTag = UIApplication.shared.keyWindow?.viewWithTag(102){
+            blurEffectView?.removeFromSuperview()
+            blurEffectView = nil
+//            blurWithTag.removeFromSuperview()
+//            blurWithTag = UIView()
             tableView?.isScrollEnabled = true
-        }
+ //       }
         
-        //        if(twitterWebview?.canGoBack)! {
-        //            //Go back in webview history
-        //            twitterWebview?.goBack()
-        //        } else {
-        //            //Pop view controller to preview view controller
-        //            self.navigationController?.popViewController(animated: true)
         //        }
         ReusableTableView.backgroundIsBlurred = false
+    }
+    
+    @objc func dismissProfile(){
+        print("dismiss profile func called")
+       // ReusableTableView.dummyVC.navigationController?.dismiss(animated: true, completion: nil)
+       // parentCollectionController = nil
     }
     
     //use these in case you have problems in the future
     //https://stackoverflow.com/questions/27676188/how-to-get-parent-controller-from-uiviewcontainers-controller
     //https://stackoverflow.com/questions/36924747/how-to-access-parent-view-controller-from-popover-in-swift-using-storyboard
     func goToProfNaked(userId dataobjectUID: String) {
-        //self.performSegueWithIdentifier("showComments", sender:dataobject )
         
-        let profileVC = storyboard.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
-        profileVC.username = dataobjectUID
-        
-        
-        parentCollectionController?.navigationController?.pushViewController(profileVC, animated: true)
-        
+        weak var profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RealProfilePage") as? ProfilePage2
+        profileVC?.username = dataobjectUID
+//
+        parentCollectionController?.navigationController?.pushViewController(profileVC!, animated: true)
+//        profileVC = nil
         print("going to profile in reusabletableview")
+        //let dummyVC = UIViewController()
+        //let navigationController = UINavigationController(rootViewController: ReusableTableView.dummyVC)
+        //navigationController.present(navigationController, animated: true, completion: nil)
+        
+//        ReusableTableView.dummyVC.navigationController?.pushViewController(profileVC!, animated: true)
+//        ReusableTableView.dummyVC.navigationController?.dismiss(animated: true, completion: nil)
+
+        
     }
     
-    func goToProfilePage(userID dataobjectUID: String, profileImage dataProfileImage: UIImageView) {
-        //self.performSegueWithIdentifier("showComments", sender:dataobject )
+    
+    
+    
+    func goToProfilePage(userID dataobjectUID: String) {
+
         
-        let profileVC = storyboard.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
-        profileVC.userId = dataobjectUID
-        
-        
-        parentCollectionController?.navigationController?.pushViewController(profileVC, animated: true)
+        let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RealProfilePage") as? ProfilePage2
+        profileVC?.userId = dataobjectUID
+        //
+        parentCollectionController?.navigationController?.pushViewController(profileVC!, animated: true)
+        //        profileVC = nil
         
         print("going to profile in reusabletableview")
+        
+        //profileVC = nil
+        // profileVC?.userId = nil
+        //parentCollectionController = nil
+        
+      //  let navigationController = UINavigationController(rootViewController: ReusableTableView.dummyVC)
+       // weak var newParentViewController = UIViewController()
+      //  weak var newParentViewController = parentCollectionController!
+       // parentCollectionController = nil
+         // newParentViewController = nil
+       
+//        newParentViewController!.present(navigationController, animated: true, completion: nil)
+//
+//        ReusableTableView.dummyVC.navigationController?.pushViewController(profileVC!, animated: true)
+      
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
+         
+           // ReusableTableView.dummyVC.navigationController?.dismiss(animated: true, completion: nil)
+           //newParentViewController = nil
+//        })
+        
     }
+    
 
     func goReplyToTweet(tweetID dataTweetID: String) {
-        let writeViewController = storyboard.instantiateViewController(withIdentifier: "WriteViewController") as! WriteViewController
-        writeViewController.tweetID = dataTweetID
-        parentCollectionController?.navigationController?.pushViewController(writeViewController, animated: true)
+        weak var writeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RealProfilePage") as? WriteViewController
+        writeViewController?.tweetID = dataTweetID
+        parentCollectionController?.navigationController?.pushViewController(writeViewController!, animated: true)
         print("empty reply to tweet")
     }
     
     func goQuoteTweet(tweetText dataTweetText: String, username dataUsername: String) {
-        let writeViewController = storyboard.instantiateViewController(withIdentifier: "WriteViewController") as! WriteViewController
-        writeViewController.initTweetText = dataTweetText
-        writeViewController.initUsername = dataUsername
+        weak var writeViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RealProfilePage") as? WriteViewController
+        writeViewController?.initTweetText = dataTweetText
+        writeViewController?.initUsername = dataUsername
         
-        parentCollectionController?.navigationController?.pushViewController(writeViewController, animated: true)
+        parentCollectionController?.navigationController?.pushViewController(writeViewController!, animated: true)
         print("empty reply to tweet")
     }
     

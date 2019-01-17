@@ -340,7 +340,7 @@
                                                 <color key="textColor" red="0.50196078431372548" green="0.33725490196078434" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view tag="1001" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="OEe-xe-xUS" customClass="BEMCheckBox">
+                                            <view tag="1001" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OEe-xe-xUS" customClass="BEMCheckBox">
                                                 <rect key="frame" x="99.5" y="0.0" width="142.5" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
@@ -361,7 +361,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="280" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hq-sK-96K">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="280" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hq-sK-96K">
                                                 <rect key="frame" x="251.5" y="0.0" width="31" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.50196078430000002" green="0.33725490200000002" blue="0.16862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -948,21 +948,15 @@
                                     <outlet property="delegate" destination="bgP-n2-BQD" id="GtP-pT-v2q"/>
                                 </connections>
                             </view>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Xhi-j2-olP">
-                                <rect key="frame" x="169" y="347" width="37" height="37"/>
-                                <color key="color" red="0.58039215686274503" green="0.82745098039215681" blue="0.77647058823529413" alpha="1" colorSpace="calibratedRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="0.2156862745" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iF8-fI-mvc" firstAttribute="top" secondItem="swd-k7-Eo4" secondAttribute="bottom" constant="8" id="3KM-hM-wkW"/>
-                            <constraint firstItem="Xhi-j2-olP" firstAttribute="centerY" secondItem="Tgz-6a-536" secondAttribute="centerY" id="4qu-4P-DRO"/>
                             <constraint firstItem="iF8-fI-mvc" firstAttribute="leading" secondItem="Tgz-6a-536" secondAttribute="leading" id="7LE-4X-BBo"/>
                             <constraint firstItem="swd-k7-Eo4" firstAttribute="top" secondItem="AOo-5B-0Mu" secondAttribute="bottom" constant="8" id="A4e-hm-iZU"/>
                             <constraint firstItem="AOo-5B-0Mu" firstAttribute="top" secondItem="Tgz-6a-536" secondAttribute="top" id="N6a-f0-FZt"/>
                             <constraint firstItem="Tgz-6a-536" firstAttribute="trailing" secondItem="swd-k7-Eo4" secondAttribute="trailing" constant="8" id="WCZ-FA-nJl"/>
-                            <constraint firstItem="Xhi-j2-olP" firstAttribute="centerX" secondItem="Tgz-6a-536" secondAttribute="centerX" id="Yhy-nt-6UB"/>
                             <constraint firstItem="iF8-fI-mvc" firstAttribute="bottom" secondItem="Tgz-6a-536" secondAttribute="bottom" id="cHu-JQ-Jo2"/>
                             <constraint firstItem="AOo-5B-0Mu" firstAttribute="trailing" secondItem="Tgz-6a-536" secondAttribute="trailing" id="cUk-oT-eSx"/>
                             <constraint firstItem="swd-k7-Eo4" firstAttribute="leading" secondItem="Tgz-6a-536" secondAttribute="leading" constant="8" id="eAC-hb-6jR"/>
@@ -973,7 +967,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="BlackTweeter ✊🏾" id="sg8-Ug-Yoj"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="Xhi-j2-olP" id="IRI-Yk-8CP"/>
                         <outlet property="bio" destination="Mef-xM-sax" id="XU9-JE-tVa"/>
                         <outlet property="fancySegmentedControl" destination="swd-k7-Eo4" id="C4C-QQ-MYg"/>
                         <outlet property="follow" destination="MGh-rH-bRE" id="Pdp-XZ-R6g"/>
@@ -1053,6 +1046,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Iz9-TL-5Hn" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ShA-MZ-Dyq">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.58039215690000001" green="0.82745098039999998" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
@@ -1074,6 +1068,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Igq-BI-5do">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.58039215690000001" green="0.82745098039999998" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
@@ -1093,6 +1088,7 @@
                     <tabBarItem key="tabBarItem" title="Login" id="6tf-F0-kWU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4vN-Zx-DWz">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1185,6 +1181,7 @@
                     <tabBarItem key="tabBarItem" title="RealProfile" id="YfF-JM-rwN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eKh-AP-DSP">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.58039215690000001" green="0.82745098039999998" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>

@@ -50,7 +50,7 @@ class AuthViewReal: UIViewController, SFSafariViewControllerDelegate, LatestCell
     
     @IBAction func goToProfileAction(_ sender: Any) {
         if (mUserId != nil){
-            goToProfilePage(userID: mUserId!, profileImage: menuProfilePic)
+            goToProfilePage(userID: mUserId!)
         }
     }
     
@@ -83,7 +83,7 @@ class AuthViewReal: UIViewController, SFSafariViewControllerDelegate, LatestCell
     
     
     required init?(coder aDecoder: NSCoder) {
-        self.swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY)
+        self.swifter = Swifter(consumerKey: AppDelegate.TWITTER_CONSUMER_KEY, consumerSecret: AppDelegate.TWITTER_CONSUMER_SECRET_KEY)
         super.init(coder: aDecoder)
     }
     
@@ -220,7 +220,7 @@ class AuthViewReal: UIViewController, SFSafariViewControllerDelegate, LatestCell
         // fetchTwitterHomeStream()
     }
     
-    func goToProfilePage(userID dataobjectUID: String, profileImage dataProfileImage: UIImageView) {
+    func goToProfilePage(userID dataobjectUID: String) {
         
         let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
         profileVC.userId = dataobjectUID
@@ -238,7 +238,7 @@ class AuthViewReal: UIViewController, SFSafariViewControllerDelegate, LatestCell
     @objc func profPicClick(tapGestureRecognizer: UITapGestureRecognizer)
     {
         if (mUserId != nil){
-            goToProfilePage(userID: mUserId!, profileImage: menuProfilePic)
+            goToProfilePage(userID: mUserId!)
         }
     }
     

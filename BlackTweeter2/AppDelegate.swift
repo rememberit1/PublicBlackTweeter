@@ -18,20 +18,22 @@ import SDWebImage
 
 //how to autoarrange text CTRL + I
 
-let TWITTER_CONSUMER_KEY = "gmcTIUUwLBFfXk6YTPzdTxt09"
-let TWITTER_CONSUMER_SECRET_KEY = "OWSPUxlxaqtkJXs2JG37IAEXxU9uGn80gcur4MORoJ1iL9uPmw"
-//let TWITTER_CONSUMER_KEY = "n1iDWOsQDwP94rGhU6OZTUjZg"
-//let TWITTER_CONSUMER_SECRET_KEY = "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3"
 
-
-let OAUTH_TOKEN = "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW"
-let OAUTH_TOKEN_SECRET = "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate  {
     
+    static let TWITTER_CONSUMER_KEY = "gmcTIUUwLBFfXk6YTPzdTxt09"
+    static let TWITTER_CONSUMER_SECRET_KEY = "OWSPUxlxaqtkJXs2JG37IAEXxU9uGn80gcur4MORoJ1iL9uPmw"
+    //let TWITTER_CONSUMER_KEY = "n1iDWOsQDwP94rGhU6OZTUjZg"
+    //let TWITTER_CONSUMER_SECRET_KEY = "5kuIPfHOGcICSrDjBqnIbpD2cFm4Va6OMsgEpAiXkcgbwrF0j3"
+    
+    
+    static let OAUTH_TOKEN = "24218899-RAzoFUiGy72u1hRkwMUYokZ5PLA5fahvZ8CXc3IxW"
+    static let OAUTH_TOKEN_SECRET = "OxQoF9gOVwRCBtuzPyg8oavA7LC2gKbtKamuSJsGP3igJ"
+    
     var window: UIWindow?
-    var drawerContainer : MMDrawerController?
+    weak var drawerContainer : MMDrawerController?
     static var onBoardingCompleted: Bool?
     static var eulaCompleted: Bool?
     static var objContentHasBeenBlocked: Bool?

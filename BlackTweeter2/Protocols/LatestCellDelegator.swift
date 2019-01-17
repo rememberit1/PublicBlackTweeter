@@ -9,7 +9,7 @@
 import Foundation
 
 protocol LatestCellDelegator: class {
-    func goToProfilePage(userID dataobjectUID: String, profileImage dataProfileImage: UIImageView)
+    func goToProfilePage(userID dataobjectUID: String)
     func goToProfNaked(userId dataobjectUID: String)
     func goReplyToTweet(tweetID dataTweetID: String)
     func goQuoteTweet(tweetText dataTweetText: String, username dataUsername: String)

@@ -22,9 +22,13 @@
 		8F288C042060AF4A0079C4B3 /* TWTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F288C032060AF4A0079C4B3 /* TWTButton.swift */; };
 		8F288C092062010F0079C4B3 /* LatestCellDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F288C082062010F0079C4B3 /* LatestCellDelegator.swift */; };
 		8F2C444B20FEFEC5004D025D /* GiFHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2C444A20FEFEC5004D025D /* GiFHUD.swift */; };
+		8F3103FD21EA0D68008FB393 /* GalleryTapGestureRecog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3103FC21EA0D68008FB393 /* GalleryTapGestureRecog.swift */; };
+		8F31040321EA0E3D008FB393 /* CustomCellUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F31040221EA0E3D008FB393 /* CustomCellUpdater.swift */; };
+		8F31040521EA0E7C008FB393 /* EraseCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F31040421EA0E7C008FB393 /* EraseCellDelegate.swift */; };
 		8F3658972055D31700EF2115 /* UITextViewHashtagExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3658962055D31700EF2115 /* UITextViewHashtagExtension.swift */; };
 		8F36589B20581F6500EF2115 /* AttrTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36589A20581F6500EF2115 /* AttrTextView.swift */; };
 		8F3DC8A720A546480054A85E /* CircularTransactional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DC8A620A546480054A85E /* CircularTransactional.swift */; };
+		8F45867521EB2C72001F741B /* ProfilePage3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F45867421EB2C72001F741B /* ProfilePage3.swift */; };
 		8F4DB00B1F902E6C00CDD427 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F4DB00A1F902E6C00CDD427 /* AppDelegate.swift */; };
 		8F4DB0121F902E6C00CDD427 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F4DB0101F902E6C00CDD427 /* Main.storyboard */; };
 		8F4DB0171F902E6C00CDD427 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F4DB0151F902E6C00CDD427 /* LaunchScreen.storyboard */; };
@@ -183,9 +187,13 @@
 		8F288C032060AF4A0079C4B3 /* TWTButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTButton.swift; sourceTree = "<group>"; };
 		8F288C082062010F0079C4B3 /* LatestCellDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCellDelegator.swift; sourceTree = "<group>"; };
 		8F2C444A20FEFEC5004D025D /* GiFHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiFHUD.swift; sourceTree = "<group>"; };
+		8F3103FC21EA0D68008FB393 /* GalleryTapGestureRecog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryTapGestureRecog.swift; sourceTree = "<group>"; };
+		8F31040221EA0E3D008FB393 /* CustomCellUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellUpdater.swift; sourceTree = "<group>"; };
+		8F31040421EA0E7C008FB393 /* EraseCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraseCellDelegate.swift; sourceTree = "<group>"; };
 		8F3658962055D31700EF2115 /* UITextViewHashtagExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewHashtagExtension.swift; sourceTree = "<group>"; };
 		8F36589A20581F6500EF2115 /* AttrTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttrTextView.swift; sourceTree = "<group>"; };
 		8F3DC8A620A546480054A85E /* CircularTransactional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransactional.swift; sourceTree = "<group>"; };
+		8F45867421EB2C72001F741B /* ProfilePage3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePage3.swift; sourceTree = "<group>"; };
 		8F4DB0071F902E6C00CDD427 /* BlackTweeter2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlackTweeter2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F4DB00A1F902E6C00CDD427 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F4DB0111F902E6C00CDD427 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -351,6 +359,8 @@
 			isa = PBXGroup;
 			children = (
 				8F288C082062010F0079C4B3 /* LatestCellDelegator.swift */,
+				8F31040221EA0E3D008FB393 /* CustomCellUpdater.swift */,
+				8F31040421EA0E7C008FB393 /* EraseCellDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -410,6 +420,8 @@
 				8F84462F2135C22B0067808A /* OnBoardMain.swift */,
 				8FA9F62C21BE33D900606CF9 /* EULAViewController.swift */,
 				8F190C0E21379EE900639E98 /* OnBoardSubclass.swift */,
+				8F45867421EB2C72001F741B /* ProfilePage3.swift */,
+				8F3103FC21EA0D68008FB393 /* GalleryTapGestureRecog.swift */,
 				8FE4B9DF20AB3AAA00C5D6FC /* Asset2.xcassets */,
 				8F4DB0181F902E6C00CDD427 /* Info.plist */,
 				8F04393C1F9D325C00589EF3 /* BlackTweeter2-Bridging-Header.h */,
@@ -929,6 +941,7 @@
 				8FAE5AF41FBD64C300972EAE /* HomeStatus.swift in Sources */,
 				8F7F62712135C92F00CA4EDE /* FillAnimationView.swift in Sources */,
 				8F190C0F21379EE900639E98 /* OnBoardSubclass.swift in Sources */,
+				8F31040521EA0E7C008FB393 /* EraseCellDelegate.swift in Sources */,
 				8F73297B2086879B004FFCF0 /* ReusableTableView.swift in Sources */,
 				8FD7AFDD20ACDA5700834555 /* BaseViewController.swift in Sources */,
 				8F1EEE90212F0BB900E80CCC /* TimelineViewController3.swift in Sources */,
@@ -953,6 +966,7 @@
 				8FD9D8502189524D002A69FB /* BTParentViewController.swift in Sources */,
 				8FABCBA01FFEA83400B3F672 /* MMDrawerVisualState.m in Sources */,
 				8FAE5AF11FBD5C3300972EAE /* WriteViewController.swift in Sources */,
+				8F31040321EA0E3D008FB393 /* CustomCellUpdater.swift in Sources */,
 				8F1CC1A020D2C9B2002C73D4 /* BEMAnimationManager.m in Sources */,
 				8FCA71C321DED558006F3A4C /* ScaleImageExtension.swift in Sources */,
 				8F721BC11FF6EB3A00E64D38 /* AuthViewReal.swift in Sources */,
@@ -963,6 +977,7 @@
 				8F288BFF2060971B0079C4B3 /* FXBlurView.m in Sources */,
 				8F4DB00B1F902E6C00CDD427 /* AppDelegate.swift in Sources */,
 				8FABCBA31FFEA83400B3F672 /* MMDrawerController.m in Sources */,
+				8F45867521EB2C72001F741B /* ProfilePage3.swift in Sources */,
 				8F288C092062010F0079C4B3 /* LatestCellDelegator.swift in Sources */,
 				8F36589B20581F6500EF2115 /* AttrTextView.swift in Sources */,
 				8F54DAFB2084073B0071784F /* CollectionVeiwCell.swift in Sources */,
@@ -977,6 +992,7 @@
 				8F6C70AF205F3BEE0018C943 /* PlayerView.swift in Sources */,
 				8F04393F1F9D325C00589EF3 /* NSObject+test.m in Sources */,
 				8F7F625B2135C6E700CA4EDE /* PaperOnboardingDataSource.swift in Sources */,
+				8F3103FD21EA0D68008FB393 /* GalleryTapGestureRecog.swift in Sources */,
 				8FA1CC1E1FBF38AB007F0D46 /* AppConstants.swift in Sources */,
 				8F288C022060AF400079C4B3 /* AvatarImageView.swift in Sources */,
 				8FA0D50F21098E3B008F636E /* FBTweet.swift in Sources */,
@@ -1169,7 +1185,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1194,7 +1210,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

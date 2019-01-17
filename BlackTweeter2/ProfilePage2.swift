@@ -10,14 +10,15 @@ import UIKit
 import SwifteriOS
 import Locksmith
 import SDWebImage
+import SafariServices
 import SJFluidSegmentedControl
+import AVFoundation
 import CollieGallery
-//https://michiganlabs.com/ios/development/2016/05/31/ios-animating-uitableview-header/
-class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate, UIGestureRecognizerDelegate, SJFluidSegmentedControlDataSource, SJFluidSegmentedControlDelegate, CollieGalleryDelegate, CustomCellUpdater, LatestCellDelegator, EraseCellDelegate {
 
-    
-    
-    
+//solution to save masive amounts of memory is make swifter weak and UIvisual effects weak. (HOPEFULLY MAYBE)
+//https://michiganlabs.com/ios/development/2016/05/31/ios-animating-uitableview-header/
+class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate, UIGestureRecognizerDelegate,UITabBarControllerDelegate, SJFluidSegmentedControlDataSource, SJFluidSegmentedControlDelegate, CollieGalleryDelegate, LatestCellDelegator, EraseCellDelegate {
+
     enum TimelineEnum {
         case `default`
         case timeline
@@ -52,8 +53,8 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var statusesCount: UILabel!
     @IBOutlet weak var fancySegmentedControl: SJFluidSegmentedControl!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet var headerView: UIView!
+   // @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var headerView: UIView!
     
     
     var profileImageUrl: String!
@@ -65,14 +66,13 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     }
     
     weak var profileCollieDelegate: CollieGalleryDelegate!
-    
+    weak var fancySegmentDelegate: SJFluidSegmentedControlDelegate!
+    weak var webviewDelegate: UIWebViewDelegate?
     var OneExpandedProfPic = [CollieGalleryPicture]()
     var username: String?
     let maxHeaderHeight: CGFloat = 160;
     let minHeaderHeight: CGFloat = 40;
     var previousScrollOffset: CGFloat = 0
-    
-    
     let calendar = Calendar.current
     let currentDateTime = Date()
     
@@ -82,7 +82,8 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     var enteredLikes = false
     
     
-    var userId: String?//for dumb__username: 24218899
+   var userId: String?//for dumb__username: 24218899
+   // var userId = "24218899"
 
     private var tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
     var swifter: Swifter?
@@ -92,11 +93,11 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     //var tweetsJsonArray : [JSON] = []
     var changeableTweetsArray: [LatestStatus] = []
     
-    private let vw = UIView()
-    private var twitterWebview : UIWebView?
-    private var blurEffectView: UIVisualEffectView?
+   // private weak var vw = UIView()
+    private weak var twitterWebview : UIWebView?
+    private weak var blurEffectView: UIVisualEffectView?
     private var backgroundIsBlurred = false
-    var currentTime = TimeInterval()
+    //var currentTime = TimeInterval()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,26 +112,27 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         
         profileTableView.delegate = self
         profileTableView.dataSource = self
-        profileTableView?.register(UINib(nibName: "FreeCell", bundle: nil), forCellReuseIdentifier: "FreeCell")
-        profileTableView.tableFooterView = UIView.init()
         profileCollieDelegate = self
+        fancySegmentDelegate = self
+       // fancySegmentedControl.dataSource = self
+        profileTableView?.register(UINib(nibName: "FreeCell", bundle: nil), forCellReuseIdentifier: "FreeCell")
+        //profileTableView.tableFooterView = UIView.init()
         setUpMenuButton()
         
-        self.swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY, oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
+        swifter = Swifter(consumerKey: AppDelegate.TWITTER_CONSUMER_KEY, consumerSecret: AppDelegate.TWITTER_CONSUMER_SECRET_KEY, oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
         
         let failureHandler: (Error) -> Void = { error in
             print("Yeaaa...so theres a problem with you network 😕. ", self.username)
-            
         }
         
         let viewDidLoadDispatch = DispatchGroup()
         viewDidLoadDispatch.enter()
-        self.hideView()
+       // self.hideView()
         if (username == nil ){
             swifter?.showUser(UserTag.id(userId!), includeEntities: true, success: { json in
                 self.hydrateProfView(json: json)
                 viewDidLoadDispatch.leave()
-                self.showView()
+               // self.showView()
             }, failure: failureHandler)
             
         }else {
@@ -139,7 +141,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
                 
                 self.hydrateProfView(json: json)
                 viewDidLoadDispatch.leave()
-                self.showView()
+               // self.showView()
             }, failure: failureHandler)
         }
         
@@ -149,15 +151,19 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         initNavigationItemTitleView()
     }
     
+    deinit {
+        print("ben! deinit in profile page")
+    }
+    
     func hideView () {
-        self.activityIndicator.isHidden = false
+       // self.activityIndicator.isHidden = false
         self.headerView.isHidden = true
         self.fancySegmentedControl.isHidden = true
         self.profileTableView.isHidden = true
     }
     
     func showView() {
-        self.activityIndicator.isHidden = true
+       // self.activityIndicator.isHidden = true
         self.headerView.isHidden = false
         self.fancySegmentedControl.isHidden = false
         self.profileTableView.isHidden = false
@@ -192,12 +198,15 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.headerHeightConstraint.constant = self.maxHeaderHeight
-        currentTime = Date().timeIntervalSinceReferenceDate
+        //currentTime = Date().timeIntervalSinceReferenceDate
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         enteredThePage = false
+        //NotificationCenter.default.post(name: NSNotification.Name("dismissProfile"), object: nil)
+       // ReusableTableView.dummyVC.navigationController?.dismiss(animated: true, completion: nil)
+        //NotificationCenter.default.removeObserver(self, name: NSNotification.Name("dismissProfile"), object: nil)
     }
     
     func numberOfSegmentsInSegmentedControl(_ segmentedControl: SJFluidSegmentedControl) -> Int {
@@ -264,7 +273,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         self.displayLoadingGIF()
         if (timelineType == TimelineEnum.mentions.stringValue) {
             
-            self.swifter?.searchTweet(using: username!, geocode: nil, lang: nil, locale: nil, resultType: nil, count: 50, until: nil, sinceID: nil, maxID: nil, includeEntities: true, callback: "", tweetMode: TweetMode.extended, success: {(mentionsSearchJson: JSON, uselessMeta: JSON?) in
+            self.swifter?.searchTweet(using: username!, geocode: nil, lang: nil, locale: nil, resultType: nil, count: 50, until: nil, sinceID: nil, maxID: nil, includeEntities: true, callback: "", tweetMode: TweetMode.extended, success: { (mentionsSearchJson: JSON, uselessMeta: JSON?) in
                 self.fancySegmentedControl.alpha = 1.0
                 self.functionJson = [:]
                 self.functionJson = mentionsSearchJson
@@ -304,14 +313,14 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     }
     
     func doFriendRequest (){
-        let failureHandler: (Error) -> Void = { error in
+        let failureHandler: (Error) -> Void = {  error in
             print("Yeaaa...so theres a problem with the network 😕.")
             self.alert(title: "It's not you, it's me...", message: "Network problem, couldn't become friends 😕. \(error.localizedDescription)")
         }
         //swifter?.followUser(UserTag.id(userId!))
         self.swifter?.followUser(UserTag.id(userId!), follow: true, success: { json in
-            print("follow user", json)
-            self.alert(title: "BFFL", message: "You're now frineds")
+           // print("follow user", json)
+       //     self.alert(title: "BFFL", message: "You're now frineds")
             
         }, failure: failureHandler)
     }
@@ -440,7 +449,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
                         }
                     }
                 }
-                print ("quoteben ", RTText!, "--", RTFullName!, "--", RTUsername!, "--", RTmediaString0, "--", RTmediaString1)
+              //  print ("quoteben ", RTText!, "--", RTFullName!, "--", RTUsername!, "--", RTmediaString0, "--", RTmediaString1)
             }
             
             
@@ -455,7 +464,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
                     if (myEntry.key == "urls") {
                         let smallJson = myEntry.value
                         if let urlStringZero = smallJson[0]["expanded_url"].string {
-                            print("urlStringzero: ", urlStringZero)
+                          //  print("urlStringzero: ", urlStringZero)
                             regularString = urlStringZero
                         }
                     }
@@ -596,20 +605,6 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         }
         
         if let backgroundImageUrl = json["profile_banner_url"].string {
-            /*logoImageView?.contentMode = UIViewContentMode.scaleAspectFill
-            // headerImageView.sd_setImage(with: URL(string: backgroundImageUrl), placeholderImage: UIImage(named: "header_bg"))
-            SDWebImageManager.shared().imageDownloader?.downloadImage(with: URL(string: backgroundImageUrl), options: SDWebImageDownloaderOptions.allowInvalidSSLCertificates, progress: { (min, max, url) in
-                //   print("loading……")
-            }, completed: { (image, data, error, finished) in
-                if image != nil {
-                    self.logoImageView?.image = image
-                    self.logoImageView?.contentMode = UIViewContentMode.scaleAspectFill
-                    
-                } else {
-                    print("did not load image in profileview")
-                }
-            })*/
-            
             logoImageView.sd_setImage(with: URL(string: backgroundImageUrl), placeholderImage: nil)
         }
     }
@@ -641,24 +636,24 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     }
     
     func refreshUI() {
-        DispatchQueue.main.async{
+       // DispatchQueue.main.async{
             // self.reusableTableView = ReusableTableView(self.profileTableview, self.changeableTweetsArray, self)
             self.profileTableView.reloadData()
             
-            let scrollDispatch = DispatchGroup()
-            
-            for i in 0 ..< 1 {
-                scrollDispatch.enter()
-                self.expandHeader()
-                scrollDispatch.leave()
-            }
-            
-            scrollDispatch.notify(queue: .main) {
-                self.scrollToFirstRow()
-                self.expandHeader()
-                self.dismissLoadingGIF()
-            }
-        }
+//            let scrollDispatch = DispatchGroup()
+//
+//            for i in 0 ..< 1 {
+//                scrollDispatch.enter()
+//                self.expandHeader()
+//                scrollDispatch.leave()
+//            }
+//
+//            scrollDispatch.notify(queue: .main) {
+//                self.scrollToFirstRow()
+//                self.expandHeader()
+//            }
+        //}
+        
         self.dismissLoadingGIF()
     }
     
@@ -696,7 +691,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         UIApplication.shared.keyWindow?.addSubview(twitterWebview!)
         
         //self.view.addSubview(webV)
-        twitterWebview?.delegate = self //as UIWebViewDelegate;
+        twitterWebview?.delegate = webviewDelegate //as UIWebViewDelegate;
         let subviewUrl = URL (string: "https://twitter.com/blah/status/\(tweetId)")
         let myURLRequest:URLRequest = URLRequest(url: subviewUrl!)
         twitterWebview?.loadRequest(myURLRequest)
@@ -786,7 +781,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
         print("going to profile in prof...naked ")
     }
     
-    func goToProfilePage(userID dataobjectUID: String, profileImage dataProfileImage: UIImageView) {
+    func goToProfilePage(userID dataobjectUID: String) {
         //self.performSegueWithIdentifier("showComments", sender:dataobject )
         
         let profileVC = storyboard?.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
@@ -976,17 +971,17 @@ extension ProfilePage2: UITableViewDataSource, UITableViewDelegate {
         
         cell.updateButtons()
         cell.likeButton.tag = indexPath.row
-        if ReusableTableView.favoriteSelected[indexPath.row] {
-            cell.likeButton.setImage(UIImage(named: "icon-heart-teal"), for: .normal)
-            cell.likeButton.alpha = 1.0
-            cell.likeButton.setTitleColor(AppConstants.tweeterDarkGreen, for: .normal)
-        }
+//        if ReusableTableView.favoriteSelected[indexPath.row] {
+//            cell.likeButton.setImage(UIImage(named: "icon-heart-teal"), for: .normal)
+//            cell.likeButton.alpha = 1.0
+//            cell.likeButton.setTitleColor(AppConstants.tweeterDarkGreen, for: .normal)
+//        }
         cell.retweetButton.tag = indexPath.row
-        if ReusableTableView.retweetSelected[indexPath.row] {
-            cell.retweetButton.setImage(UIImage(named: "icon-retweet-teal"), for: .normal)
-            cell.retweetButton.alpha = 1.0
-            cell.retweetButton.setTitleColor(AppConstants.tweeterDarkGreen, for: .normal)
-        }
+//        if ReusableTableView.retweetSelected[indexPath.row] {
+//            cell.retweetButton.setImage(UIImage(named: "icon-retweet-teal"), for: .normal)
+//            cell.retweetButton.alpha = 1.0
+//            cell.retweetButton.setTitleColor(AppConstants.tweeterDarkGreen, for: .normal)
+//        }
         
         cell.cellLatestTweet.setText(status: (cell.latestStatus)!,
                                      withHashtagColor: AppConstants.tweeterDarkGreen,

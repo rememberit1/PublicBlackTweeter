@@ -109,12 +109,14 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     override func viewWillAppear(_ animated: Bool) {
         //reset the blur scroll effect
         super.viewWillAppear(animated)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeline(_:)), name: NSNotification.Name(rawValue: "notificationName"), object: nil)
         thisTableview.isScrollEnabled = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         inTimeline = false
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "notificationName"), object: nil)
+        print("leaving  timeline3")
     }
     
     override func viewDidLoad() {
@@ -136,6 +138,15 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
         initNavigationItemTitleView()
 
         //NotificationCenter.default.addObserver(self, selector: #selector(TimelineViewController3.objcBrains), name: NSNotification.Name(rawValue: "timelineReload"), object: nil)
+    }
+    
+    @objc func handleNotificationTimeline(_ notification: NSNotification){
+        print(notification.userInfo ?? "")
+        if let dict = notification.userInfo as NSDictionary? {
+            if let id = dict["myStringKey"] as? String{
+                print("my received random string in timeline:", id)
+            }
+        }
     }
     
     private func initNavigationItemTitleView() {
@@ -177,7 +188,8 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
             //            print("timeline dic accesstokenKey:\(tokenDictionary!["accessTokenKey"] as! String)")
             //            print("timeline dic accesstokenSecret:\(tokenDictionary!["accessTokenSecret"] as! String)")
             
-            self.swifter = Swifter(consumerKey: TWITTER_CONSUMER_KEY, consumerSecret: TWITTER_CONSUMER_SECRET_KEY, oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
+            
+            self.swifter = Swifter(consumerKey: AppDelegate.TWITTER_CONSUMER_KEY, consumerSecret: AppDelegate.TWITTER_CONSUMER_SECRET_KEY, oauthToken: tokenDictionary!["accessTokenKey"] as! String, oauthTokenSecret: tokenDictionary!["accessTokenSecret"] as! String)
             
             if (self.swifter == nil) {
                 print("the account is nil!")
@@ -489,7 +501,8 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     
     func refreshUI() {
         DispatchQueue.main.async{
-            self.reusableTableView = ReusableTableView(self.thisTableview, self.latestStatuses, self)
+           // self.reusableTableView = ReusableTableView(self.thisTableview, self.latestStatuses, self)
+            self.reusableTableView = ReusableTableView(self.thisTableview, self.latestStatuses)
             self.thisTableview.reloadData()
             
             if (self.reusableTableView.tableView?.refreshControl == nil){
