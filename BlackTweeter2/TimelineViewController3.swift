@@ -13,6 +13,7 @@ import FirebaseDatabase
 import Locksmith
 import SafariServices
 import AVFoundation
+import AVKit
 import CollieGallery
 //import GoogleMobileAds
 
@@ -45,6 +46,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     
     private var latestStatuses: [LatestStatus] = []
     var tweetsArray : [JSON] = []
+    private let playerViewController = AVPlayerViewController()
     
     private lazy var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -110,12 +112,15 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
         //reset the blur scroll effect
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotificationTimeline(_:)), name: NSNotification.Name(rawValue: "notificationName"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showVideo(_:)), name: NSNotification.Name(rawValue: "videoNotification"), object: playerViewController.player?.currentItem)
+        
         thisTableview.isScrollEnabled = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         inTimeline = false
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "notificationName"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "videoNotification"), object: playerViewController.player?.currentItem)
         print("leaving  timeline3")
     }
     
@@ -140,11 +145,24 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
         //NotificationCenter.default.addObserver(self, selector: #selector(TimelineViewController3.objcBrains), name: NSNotification.Name(rawValue: "timelineReload"), object: nil)
     }
     
-    @objc func handleNotificationTimeline(_ notification: NSNotification){
+    @objc private func handleNotificationTimeline(_ notification: NSNotification){
         print(notification.userInfo ?? "")
         if let dict = notification.userInfo as NSDictionary? {
             if let id = dict["myStringKey"] as? String{
                 print("my received random string in timeline:", id)
+            }
+        }
+    }
+    @objc private func showVideo(_ notification: NSNotification){
+        print("received video info: ",notification.userInfo ?? "")
+        if let dict = notification.userInfo as NSDictionary? {
+            if let id = dict["myVideoKey"] as? String{
+                // let videoURL = URL(string: (id))
+                let videoPlayer = AVPlayer(url: URL(string: (id))!)
+                playerViewController.player = videoPlayer
+                self.present(playerViewController, animated: true){
+                    videoPlayer.play()
+                }
             }
         }
     }

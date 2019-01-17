@@ -11,11 +11,12 @@ import SwifteriOS
 import FirebaseDatabase
 import Locksmith
 import SafariServices
+import AVKit
 import AVFoundation
 import CollieGallery
 //import GoogleMobileAds
 
-class CollectionViewController: BaseViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, UITabBarControllerDelegate {
+class CollectionViewController: BaseViewController, CollieGalleryDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIWebViewDelegate, UIGestureRecognizerDelegate, UITabBarControllerDelegate {
     
     // @IBOutlet weak var bannerView: GADBannerView!
     
@@ -42,6 +43,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     
     let infiniteCount = 6
     var timer: Timer?
+    private let playerViewController = AVPlayerViewController()
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var ref : DatabaseReference!
@@ -77,12 +79,18 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         
         theTableview.isScrollEnabled = true
         NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: NSNotification.Name(rawValue: "notificationName"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showVideo(_:)), name: NSNotification.Name(rawValue: "videoNotification"), object: playerViewController.player?.currentItem)
         print("collection view visible")
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         print("leaving collection view")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "notificationName"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "videoNotification"), object: playerViewController.player?.currentItem)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
     
     override func viewDidLoad() {
@@ -122,6 +130,27 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         }
     }
     
+    @objc func showVideo(_ notification: NSNotification){
+        print("received video info: ",notification.userInfo ?? "")
+        if let dict = notification.userInfo as NSDictionary? {
+            if let id = dict["myVideoKey"] as? String{
+               // let videoURL = URL(string: (id))
+                let videoPlayer = AVPlayer(url: URL(string: (id))!)
+                playerViewController.player = videoPlayer
+                self.present(playerViewController, animated: true){
+                    videoPlayer.play()
+                }
+            }
+        }
+    }
+    
+    func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
+        //gallery.presentInViewController(self)
+        gallery.present(self, animated: true, completion: nil)
+        gallery.scrollToIndex(index)
+        
+        print("stack this is happening in reusabletable view")
+    }
 
     
     override func viewWillDisappear(_ animated: Bool) {

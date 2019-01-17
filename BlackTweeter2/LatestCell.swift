@@ -21,10 +21,10 @@ import ImageSlideshow
 
 class LatestCell: UITableViewCell {
     
-    weak var delegate: LatestCellDelegator!
+    weak var delegate: LatestCellDelegator?
     weak var customCelldelegate: CustomCellUpdater?
     //https://github.com/gmunhoz/CollieGallery\
-    weak var collieDelegate: CollieGalleryDelegate!
+    weak var collieDelegate: CollieGalleryDelegate?
     weak var eraseCellDelegate: EraseCellDelegate?
     
     @IBOutlet weak var adBar: UILabel!
@@ -117,13 +117,13 @@ class LatestCell: UITableViewCell {
     let tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
     
     //let slp = SwiftLinkPreview.init()
-     private var slp = SwiftLinkPreview(cache: InMemoryCache())
-     private var result = SwiftLinkPreview.Response()
+    private var slp = SwiftLinkPreview(cache: InMemoryCache())
+    private var result = SwiftLinkPreview.Response()
     private var newResult = SwiftLinkPreview.Response()
     
     
     @IBAction func blockAction(_ sender: Any) {
-       // alertBlock(title: "Report", message: "Report A User or Content", uivc: parentViewController!)
+    //    alertBlock(title: "Report", message: "Report A User or Content", uivc: parentViewController!)
 
     }
     @IBAction func likeAction(_ sender: UIButton) {
@@ -843,7 +843,7 @@ class LatestCell: UITableViewCell {
         let fUserId = printUserId
         print("fuserid: ", fUserId)
         if(self.delegate != nil){ //Just to be safe.
-            self.delegate.goToProfilePage(userID: fUserId!)
+            self.delegate!.goToProfilePage(userID: fUserId!)
         }else{
             print("self.delegate is nil")
         }
@@ -853,7 +853,7 @@ class LatestCell: UITableViewCell {
     {
         let fUserId = printUsername
         if(self.delegate != nil){ //Just to be safe.
-            self.delegate.goToProfNaked(userId: fUserId!)
+            self.delegate!.goToProfNaked(userId: fUserId!)
         }
     }
     
@@ -861,7 +861,7 @@ class LatestCell: UITableViewCell {
     {
         let fUserId = printUsername
         if(self.delegate != nil){ //Just to be safe.
-            self.delegate.goToProfNaked(userId: fUserId!)
+            self.delegate!.goToProfNaked(userId: fUserId!)
         }
     }
     
@@ -878,11 +878,11 @@ class LatestCell: UITableViewCell {
     }
     
     @objc func videoPlayerSuperviewClick(videoGestureRecognizer: UITapGestureRecognizer){
-        self.playExternalVideo(gifImageUrl: (latestStatus?.gifImageViewUrl)!)
+        self.playExternalVideo2(gifImageUrl: (latestStatus?.gifImageViewUrl)!)
     }
     
     @objc func videoPlayerSuperviewClickRT(videoGestureRecognizer: UITapGestureRecognizer){
-        self.playExternalVideo(gifImageUrl: (latestStatus?.RTgifString)!)
+        self.playExternalVideo2(gifImageUrl: (latestStatus?.RTgifString)!)
     }
     
     @objc func backgroundClick(backgroundGestureRecognizer: UITapGestureRecognizer) {
@@ -911,6 +911,15 @@ class LatestCell: UITableViewCell {
             player?.seek(to: kCMTimeZero)
             player?.play()
         }
+    }
+    
+    func playExternalVideo2(gifImageUrl: String){
+        var thisGifImageUrl: String? = gifImageUrl
+        var videoDict:[String:String]? = ["myVideoKey": thisGifImageUrl!]
+        //var videoDict:[String: String] = ["myVideoKey": thisGifImageUrl!]
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "videoNotification"), object: nil, userInfo: videoDict)
+        thisGifImageUrl = nil
+        videoDict = nil
     }
     
     func sendRanomNotification(){
@@ -1096,7 +1105,7 @@ class LatestCell: UITableViewCell {
 //                }
                 self.eraseCellDelegate?.blockButtonTapped(cell: self)
                 //self.makeToast("User Now Blocked", duration: 3.0, position: .top, style: self.style)
-               // self.alert(title: "Done", message: "User Now Blocked", uivc: self.parentViewController!)
+ //               self.alert(title: "Done", message: "User Now Blocked", uivc: self.parentViewController!)
                 
             }, failure: failureHandler)
         }))
@@ -1128,7 +1137,7 @@ class LatestCell: UITableViewCell {
     public func reply() {
         let fTweetId = printTweetId
         if(self.delegate != nil){ //Just to be safe.
-            self.delegate.goReplyToTweet(tweetID: fTweetId!)
+            self.delegate!.goReplyToTweet(tweetID: fTweetId!)
             print("going to write (not really) with tweetId: ", fTweetId!)
         }
     }
@@ -1136,7 +1145,7 @@ class LatestCell: UITableViewCell {
     public func quote (){
         if(self.delegate != nil){ //Just to be safe.
             //self.delegate.goQuoteTweet(tweetText: self.cellLatestTweet.text, username: self.cellUsername.text! ) //should also work, havent tested
-            self.delegate.goQuoteTweet(tweetText: printTweetText!, username: printUsername!)
+            self.delegate!.goQuoteTweet(tweetText: printTweetText!, username: printUsername!)
             print("values from quote: " + self.cellLatestTweet.text + " " + self.cellUsername.text!)
         }
     }

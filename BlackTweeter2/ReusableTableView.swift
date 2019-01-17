@@ -18,7 +18,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     public static var backgroundIsBlurred = false
     
     weak var parentCollectionController: UIViewController?
-    weak var myCollectionViewControllerDelegate: CollectionViewController?
+   // weak var myCollectionViewControllerDelegate: CollectionViewController?
     
     var blurEffectView: UIVisualEffectView?
     var twitterWebview : UIWebView?
@@ -157,6 +157,8 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         
        // print("displaying cell: ", indexPath.row)
     }
+    
+
     
      func blockButtonTapped(cell: LatestCell) {
         guard let indexPath = self.tableView?.indexPath(for: cell) else {
@@ -345,12 +347,12 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         print("empty reply to tweet")
     }
     
-    func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
-        gallery.presentInViewController(parentCollectionController!)
-        gallery.scrollToIndex(index)
-        
-        print("stack this is happening in reusabletable view")
-    }
+//    func gallery(_ gallery: CollieGallery, indexChangedTo index: Int) {
+//        gallery.presentInViewController(parentCollectionController!)
+//        gallery.scrollToIndex(index)
+//
+//        print("stack this is happening in reusabletable view")
+//    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         ReusableTableView.profTableviewScrolled = true
