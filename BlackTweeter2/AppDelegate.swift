@@ -89,12 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         showPushNotification(application: application)
         
         //slight improvement in image memory usage
-        SDImageCache.shared().config.maxCacheAge = 3600 //1 Hour
-        SDImageCache.shared().maxMemoryCost = 1024 * 1024 * 10 //Aprox 10 images
-        SDImageCache.shared().config.shouldCacheImagesInMemory = false //Default True => Store images in RAM cache for Fast performance
-        SDImageCache.shared().config.shouldDecompressImages = false
-        SDWebImageDownloader.shared().shouldDecompressImages = false
-        SDImageCache.shared().config.diskCacheReadingOptions = NSData.ReadingOptions.mappedIfSafe
         
         return true
     }

@@ -98,6 +98,10 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     private var backgroundIsBlurred = false
     var currentTime = TimeInterval()
     
+    override func viewDidDisappear(_ animated: Bool) {
+        SDImageCache.shared().clearMemory()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
