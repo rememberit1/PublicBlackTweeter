@@ -16,8 +16,6 @@ import CollieGallery
 class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate, UIGestureRecognizerDelegate, SJFluidSegmentedControlDataSource, SJFluidSegmentedControlDelegate, CollieGalleryDelegate, CustomCellUpdater, LatestCellDelegator, EraseCellDelegate {
 
     
-    
-    
     enum TimelineEnum {
         case `default`
         case timeline
@@ -80,8 +78,6 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     var enteredTimeline = false
     var enteredMentions = false
     var enteredLikes = false
-    
-    
     var userId: String?//for dumb__username: 24218899
 
     private var tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
@@ -97,6 +93,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     private var blurEffectView: UIVisualEffectView?
     private var backgroundIsBlurred = false
     var currentTime = TimeInterval()
+    var style = ToastStyle()
     
     override func viewDidDisappear(_ animated: Bool) {
         SDImageCache.shared().clearMemory()
@@ -104,6 +101,8 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.style.backgroundColor = AppConstants.tweeterDarkGreen
         
         if #available(iOS 8.2, *) {
             fancySegmentedControl.textFont = .systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
@@ -779,25 +778,32 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
     }
     
     func goToProfNaked(userId dataobjectUID: String) {
-        //self.performSegueWithIdentifier("showComments", sender:dataobject )
-        
-        let profileVC = storyboard?.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
-        profileVC.username = dataobjectUID
-        
-        
-        self.navigationController?.pushViewController(profileVC, animated: true)
-        
-        print("going to profile in prof...naked ")
+        if(dataobjectUID == username || dataobjectUID == userId){
+            print("youre already here")
+            self.view.makeToast("You're already here", duration: 1.5, position: .center, style: self.style)
+        }else{
+            print("youre not here")
+            let profileVC = storyboard?.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
+            profileVC.username = dataobjectUID
+            
+            
+            self.navigationController?.pushViewController(profileVC, animated: true)
+            
+            print("going to profile in prof...naked ")
+        }
     }
     
     func goToProfilePage(userID dataobjectUID: String, profileImage dataProfileImage: UIImageView) {
-        //self.performSegueWithIdentifier("showComments", sender:dataobject )
-        
-        let profileVC = storyboard?.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
-        profileVC.userId = dataobjectUID
-        self.navigationController?.pushViewController(profileVC, animated: true)
-        
-        print("going to profile in profile..profileimage")
+        if(dataobjectUID == userId){
+            print("youre already here")
+            self.view.makeToast("You're already here", duration: 1.5, position: .center, style: self.style)
+        }else{
+            let profileVC = storyboard?.instantiateViewController(withIdentifier: "RealProfilePage") as! ProfilePage2
+            profileVC.userId = dataobjectUID
+            self.navigationController?.pushViewController(profileVC, animated: true)
+            
+            print("going to profile in profile..profileimage")
+        }
     }
     
     

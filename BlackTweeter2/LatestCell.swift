@@ -16,7 +16,6 @@ import CollieGallery
 import SwiftLinkPreview
 import ImageSlideshow
 
-
 protocol CustomCellUpdater: class { // the name of the protocol you can put any
     func updateTableView()
 }

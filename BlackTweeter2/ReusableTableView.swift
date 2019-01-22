@@ -31,6 +31,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     weak var selectedCell = UITableViewCell()
     static var favoriteSelected:[Bool] = Array(repeating: false, count: 198)
     static var retweetSelected:[Bool] = Array(repeating: false, count: 198)
+    weak var webviewDelegate: UIWebViewDelegate?
     
     init(_ tv: UITableView, _ data: [LatestStatus], _ pcc: UIViewController)
     {
@@ -61,37 +62,6 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         //
         //        if (latestCell.statusImage0.image != nil){
         //        latestCell.statusImage0.image = nil
-        //        }
-        //        if (latestCell.statusImage1.image != nil){
-        //            latestCell.statusImage1.image = nil
-        //        }
-        //        if (latestCell.statusImage2.image != nil){
-        //            latestCell.statusImage2.image = nil
-        //        }
-        //        if (latestCell.statusImage3.image != nil){
-        //            latestCell.statusImage3.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage0.image != nil){
-        //            latestCell.RTstatusImage0.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage1.image != nil){
-        //            latestCell.RTstatusImage1.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage2.image != nil){
-        //            latestCell.RTstatusImage2.image = nil
-        //        }
-        //        if (latestCell.RTstatusImage3.image != nil){
-        //            latestCell.RTstatusImage3.image = nil
-        //        }
-        //
-        //        if (latestCell.avPlayer != nil){
-        //            latestCell.avPlayer = nil
-        //        }
-        //        if (latestCell.avPlayerLayer != nil){
-        //            latestCell.avPlayerLayer = nil
-        //        }
-        //        if (latestCell.profileImageView.image != nil){
-        //            latestCell.profileImageView.image = nil
         //        }
         
     }
@@ -161,8 +131,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
             cell.alpha = 1.0
             cell.layer.transform = CATransform3DIdentity
         })
-        
-        print("displaying cell: ", indexPath.row)
+       // print("displaying cell: ", indexPath.row)
     }
     
      func blockButtonTapped(cell: LatestCell) {
@@ -208,7 +177,8 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
         UIApplication.shared.keyWindow?.addSubview(twitterWebview!)
         
         //self.view.addSubview(webV)
-        twitterWebview?.delegate = self //as UIWebViewDelegate;
+       // twitterWebview?.delegate = self //as UIWebViewDelegate;
+        twitterWebview?.delegate = webviewDelegate //as UIWebViewDelegate;
         let subviewUrl = URL (string: "https://twitter.com/blah/status/\(tweetId)")
         let myURLRequest:URLRequest = URLRequest(url: subviewUrl!)
         twitterWebview?.loadRequest(myURLRequest)
@@ -247,22 +217,25 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
     @objc func bigButtonTapped(gestureRecognizer: UITapGestureRecognizer) {
         print("blur tapped")
         
-        if let webviewWithTag = UIApplication.shared.keyWindow?.viewWithTag(101) {
-            webviewWithTag.removeFromSuperview()
-        }
+//        if let webviewWithTag = UIApplication.shared.keyWindow?.viewWithTag(101) {
+//            webviewWithTag.removeFromSuperview()
+//        }
         
-        if let blurWithTag = UIApplication.shared.keyWindow?.viewWithTag(102){
-            blurWithTag.removeFromSuperview()
+        //       if var blurWithTag = UIApplication.shared.keyWindow?.viewWithTag(102){
+        print("blur tapped")
+        webviewDelegate = nil
+        twitterWebview?.removeFromSuperview()
+        twitterWebview = nil
+
+        blurEffectView?.removeFromSuperview()
+        blurEffectView = nil
+        //            blurWithTag.removeFromSuperview()
+        //            blurWithTag = UIView()
+
             tableView?.isScrollEnabled = true
-        }
+  //      }
         
-        //        if(twitterWebview?.canGoBack)! {
-        //            //Go back in webview history
-        //            twitterWebview?.goBack()
-        //        } else {
-        //            //Pop view controller to preview view controller
-        //            self.navigationController?.popViewController(animated: true)
-        //        }
+
         ReusableTableView.backgroundIsBlurred = false
     }
     
