@@ -12,6 +12,8 @@ import CollieGallery
 //show drawer (fix window heirchy) https://www.youtube.com/watch?v=TdKnImb4SWs
 // fix window heirarchy view (may not work) https://github.com/pinterest/ios-pdk/issues/93
 //solution? https://github.com/mattdonnelly/Swifter/issues/71
+//how to autoarrange text CTRL + I
+//show emoji CMD + CRTL + SPACE
 class AuthViewReal: UIViewController, SFSafariViewControllerDelegate, LatestCellDelegator {
     
     public static var controllerOpenedFrom: UIViewController?

@@ -17,6 +17,7 @@ import SDWebImage
 //import GoogleMobileAds
 
 //how to autoarrange text CTRL + I
+//show emoji CMD + CRTL + SPACE
 
 let TWITTER_CONSUMER_KEY = "gmcTIUUwLBFfXk6YTPzdTxt09"
 let TWITTER_CONSUMER_SECRET_KEY = "OWSPUxlxaqtkJXs2JG37IAEXxU9uGn80gcur4MORoJ1iL9uPmw"

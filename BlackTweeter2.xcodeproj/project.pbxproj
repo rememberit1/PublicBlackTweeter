@@ -50,6 +50,7 @@
 		8F7F626F2135C8AF00CA4EDE /* GestureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F626E2135C8AF00CA4EDE /* GestureControl.swift */; };
 		8F7F62712135C92F00CA4EDE /* FillAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7F62702135C92F00CA4EDE /* FillAnimationView.swift */; };
 		8F8446302135C22B0067808A /* OnBoardMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F84462F2135C22B0067808A /* OnBoardMain.swift */; };
+		8F84BED321F7E3920058592C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F84BED221F7E3920058592C /* GoogleService-Info.plist */; };
 		8F9116BC20BE71C500C98A54 /* ImageCacheLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9116BB20BE71C500C98A54 /* ImageCacheLoader.swift */; };
 		8FA0D50B21024AAE008F636E /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA0D50A21024AAE008F636E /* DateExtension.swift */; };
 		8FA0D50D21098CDF008F636E /* FBCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA0D50C21098CDF008F636E /* FBCategory.swift */; };
@@ -77,7 +78,6 @@
 		B721B09BAF0A4A01CEF530C0 /* Pods_BlackTweeter2Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ABCD3D01A93FFA9126EC649 /* Pods_BlackTweeter2Tests.framework */; };
 		B90F5E18256921F515F8F27C /* Pods_BlackTweeter2UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF9744E7A9C6F039215EE29F /* Pods_BlackTweeter2UITests.framework */; };
 		C893D52E67270DAFD6F465A7 /* Pods_BlackTweeter2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FA025AFAC3BEB36885176B /* Pods_BlackTweeter2.framework */; };
-		F854358A21B8B0630011F5BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F854358921B8B0630011F5BE /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +218,7 @@
 		8F7F626E2135C8AF00CA4EDE /* GestureControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureControl.swift; sourceTree = "<group>"; };
 		8F7F62702135C92F00CA4EDE /* FillAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillAnimationView.swift; sourceTree = "<group>"; };
 		8F84462F2135C22B0067808A /* OnBoardMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardMain.swift; sourceTree = "<group>"; };
+		8F84BED221F7E3920058592C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F9116BB20BE71C500C98A54 /* ImageCacheLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheLoader.swift; sourceTree = "<group>"; };
 		8FA0D50A21024AAE008F636E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		8FA0D50C21098CDF008F636E /* FBCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBCategory.swift; sourceTree = "<group>"; };
@@ -248,7 +249,6 @@
 		9E7EF670FE8371864B652CFF /* Pods-BlackTweeter2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackTweeter2.release.xcconfig"; path = "Pods/Target Support Files/Pods-BlackTweeter2/Pods-BlackTweeter2.release.xcconfig"; sourceTree = "<group>"; };
 		B4DA232729E89F69BE2D5B80 /* Pods-BlackTweeter2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlackTweeter2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BlackTweeter2/Pods-BlackTweeter2.debug.xcconfig"; sourceTree = "<group>"; };
 		F842E14F21BCA6C9005F4139 /* Swifter.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Swifter.xcodeproj; path = Swifter/Swifter.xcodeproj; sourceTree = "<group>"; };
-		F854358921B8B0630011F5BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FF9744E7A9C6F039215EE29F /* Pods_BlackTweeter2UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlackTweeter2UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -416,7 +416,7 @@
 				8F1CC1A320D2CA9C002C73D4 /* CheckboxHeader.h */,
 				8F4DB0151F902E6C00CDD427 /* LaunchScreen.storyboard */,
 				8F7A73EA208590D80052DD44 /* FreeCell.xib */,
-				F854358921B8B0630011F5BE /* GoogleService-Info.plist */,
+				8F84BED221F7E3920058592C /* GoogleService-Info.plist */,
 				8F288C002060ACF50079C4B3 /* Headers */,
 				8F4DB0201F902E6C00CDD427 /* BlackTweeter2Tests */,
 			);
@@ -689,12 +689,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F4DB0171F902E6C00CDD427 /* LaunchScreen.storyboard in Resources */,
-				F854358A21B8B0630011F5BE /* GoogleService-Info.plist in Resources */,
 				8FE4B9E020AB3AAA00C5D6FC /* Asset2.xcassets in Resources */,
 				8F7A73EB208590D80052DD44 /* FreeCell.xib in Resources */,
 				8F4DB0121F902E6C00CDD427 /* Main.storyboard in Resources */,
 				8FE4B9DE20AB396000C5D6FC /* Assets.xcassets in Resources */,
 				8FA105EE21E49630000C1EA9 /* realBlackLoading.gif in Resources */,
+				8F84BED321F7E3920058592C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,7 +1169,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1194,7 +1194,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

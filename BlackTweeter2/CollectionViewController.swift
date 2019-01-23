@@ -46,6 +46,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var ref : DatabaseReference!
     var versionRef: DatabaseReference!
+    var popupRef: DatabaseReference!
     var hardVersion: Int = 1
     
     private var tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
@@ -147,9 +148,31 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         if (CollectionViewController.allowedToReload){
             CollectionViewController.allowedToReload = false
             
+            var neverShowPopUp: Bool?
+            let defaults = UserDefaults.standard
+            popupRef = Database.database().reference().child("ShowPopUpApple")
+            popupRef.observe(.value, with: {(popupSnap) in
+                if (popupSnap.value == nil) {
+                    print("bendid no pop up value!")
+                }else if (popupSnap.value as! Int == 0 || defaults.bool(forKey: "neverShowPopUp") == true){
+                    //do nothing
+                   // print("bendid nothing")
+                }else {
+                    //print("bendid something")
+                    let alert = UIAlertController(title: "Having Problems? 🤔", message: "If you notice any significant bugs, just force quit and restart the app", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+                    alert.addAction(UIAlertAction(title: "Cool, Don't Show again", style: .default, handler: {action in
+                        neverShowPopUp = true
+                        defaults.set(neverShowPopUp, forKey: "neverShowPopUp")
+                        defaults.synchronize()
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                }
+//                let neverShowAgain = defaults.bool(forKey: "neverShowPopUp")
+//                print("bendid never show again is: ", neverShowAgain)
+        })
             
-
-           // versionRef = Database.database().reference().child("Version")
             versionRef = Database.database().reference().child("VersionApple")
             versionRef.observe(.value, with: {(versionSnap) in
                 if (versionSnap.value == nil) {
@@ -178,8 +201,6 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         }
     }
     
-
-
     
     //    @objc func tap() {
     //

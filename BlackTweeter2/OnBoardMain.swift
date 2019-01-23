@@ -33,7 +33,6 @@ class OnBoardMain: UIViewController, PaperOnboardingDataSource, PaperOnboardingD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("speed in onboardmain")
         onboardingView.dataSource = self
         onboardingView.delegate = self
     }
