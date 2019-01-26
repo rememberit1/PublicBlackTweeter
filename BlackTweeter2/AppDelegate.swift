@@ -73,11 +73,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         
         if !userDefaults.bool(forKey: "didFirstNetworkPull") {
-            AppDelegate.didFirstNetworkPull = false
-            print("did first pull default is false")
+            AppDelegate.didFirstNetworkPull = false// this is not necessarily the same as bool(forKey: "didFirstNetworkPull") because apple was being annoying
+            Keychain.logout()
+            print("already did first pull is false")
         }else{
             AppDelegate.didFirstNetworkPull = true
-             print("did first pull default is true")
+             print("already did first pull is true")
         }
         
         

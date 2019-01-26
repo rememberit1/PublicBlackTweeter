@@ -22,6 +22,7 @@
 		8F288C042060AF4A0079C4B3 /* TWTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F288C032060AF4A0079C4B3 /* TWTButton.swift */; };
 		8F288C092062010F0079C4B3 /* LatestCellDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F288C082062010F0079C4B3 /* LatestCellDelegator.swift */; };
 		8F2C444B20FEFEC5004D025D /* GiFHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2C444A20FEFEC5004D025D /* GiFHUD.swift */; };
+		8F3293B321FCFA0D00267AB9 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3293B221FCFA0D00267AB9 /* Keychain.swift */; };
 		8F3658972055D31700EF2115 /* UITextViewHashtagExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3658962055D31700EF2115 /* UITextViewHashtagExtension.swift */; };
 		8F36589B20581F6500EF2115 /* AttrTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F36589A20581F6500EF2115 /* AttrTextView.swift */; };
 		8F3DC8A720A546480054A85E /* CircularTransactional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3DC8A620A546480054A85E /* CircularTransactional.swift */; };
@@ -183,6 +184,7 @@
 		8F288C032060AF4A0079C4B3 /* TWTButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TWTButton.swift; sourceTree = "<group>"; };
 		8F288C082062010F0079C4B3 /* LatestCellDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestCellDelegator.swift; sourceTree = "<group>"; };
 		8F2C444A20FEFEC5004D025D /* GiFHUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiFHUD.swift; sourceTree = "<group>"; };
+		8F3293B221FCFA0D00267AB9 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		8F3658962055D31700EF2115 /* UITextViewHashtagExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewHashtagExtension.swift; sourceTree = "<group>"; };
 		8F36589A20581F6500EF2115 /* AttrTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttrTextView.swift; sourceTree = "<group>"; };
 		8F3DC8A620A546480054A85E /* CircularTransactional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularTransactional.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				8F84BED221F7E3920058592C /* GoogleService-Info.plist */,
 				8F288C002060ACF50079C4B3 /* Headers */,
 				8F4DB0201F902E6C00CDD427 /* BlackTweeter2Tests */,
+				8F3293B221FCFA0D00267AB9 /* Keychain.swift */,
 			);
 			path = BlackTweeter2;
 			sourceTree = "<group>";
@@ -931,6 +934,7 @@
 				8F190C0F21379EE900639E98 /* OnBoardSubclass.swift in Sources */,
 				8F73297B2086879B004FFCF0 /* ReusableTableView.swift in Sources */,
 				8FD7AFDD20ACDA5700834555 /* BaseViewController.swift in Sources */,
+				8F3293B321FCFA0D00267AB9 /* Keychain.swift in Sources */,
 				8F1EEE90212F0BB900E80CCC /* TimelineViewController3.swift in Sources */,
 				8F7F626F2135C8AF00CA4EDE /* GestureControl.swift in Sources */,
 				8FCFB7621FDA7264007D87E6 /* LatestStatus.swift in Sources */,

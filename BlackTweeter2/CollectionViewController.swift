@@ -47,8 +47,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
     var ref : DatabaseReference!
     var versionRef: DatabaseReference!
     var popupRef: DatabaseReference!
-    var annoyingAssAppleRef: DatabaseReference!
-    private var alwaysCheckBlockRef: DatabaseReference!
+    private var alwaysCheckBlockRef: DatabaseReference! //alwaysCheckBlockRef may be unnecessary
     private var shouldAlwaysCheckBool: Bool?
     var hardVersion: Int = 1
     
@@ -151,10 +150,7 @@ class CollectionViewController: BaseViewController, UICollectionViewDataSource, 
         if (CollectionViewController.allowedToReload){
             CollectionViewController.allowedToReload = false
             
-            
-            annoyingAssAppleRef = Database.database().reference().child("WhoUsersBlocked")
-            
-            
+            //alwaysCheckBlockRef may be unnecessary
             alwaysCheckBlockRef = Database.database().reference().child("AlwaysCheckBlockRef")
             alwaysCheckBlockRef.observe(.value, with: {(alwaysCheckBlockSnap) in
                 if (alwaysCheckBlockSnap.value == nil) {
