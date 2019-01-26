@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     static var eulaCompleted: Bool?
     static var objContentHasBeenBlocked: Bool?
     static var didFirstNetworkPull: Bool?
-    
 
     //This function is ran whenever the app is ran no matter what
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

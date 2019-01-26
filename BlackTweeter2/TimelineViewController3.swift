@@ -21,6 +21,7 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     // @IBOutlet weak var bannerView: GADBannerView!
     
     
+    
     @IBOutlet weak var thisTableview: UITableView!
     weak var reusableTableView: ReusableTableView!
     
@@ -30,7 +31,8 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     var inTimeline = true
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    //  var versionRef: DatabaseReference!
+    private var alwaysCheckBlockRef: DatabaseReference!
+    private var shouldAlwaysCheckBool: Bool?
     var hardVersion: Int = 1
     
     private var tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
@@ -169,6 +171,17 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
     func brainsForViewDidLoad () {
         //if there the token/secret is incorrect this will cause an error and not allow the user to log in. fix this. access token and oathtoken are the same thing fyi
         
+        alwaysCheckBlockRef = Database.database().reference().child("AlwaysCheckBlockRef")
+        alwaysCheckBlockRef.observe(.value, with: {(alwaysCheckBlockSnap) in
+            if (alwaysCheckBlockSnap.value == nil) {
+                print("bendid in timeline3 no checked block value!")
+            }else if (alwaysCheckBlockSnap.value as! Int == 0){
+                self.shouldAlwaysCheckBool = false
+            }else{
+                self.shouldAlwaysCheckBool = true
+            }
+        })
+        
         if (tokenDictionary == nil) {
             tokenDictionary = Locksmith.loadDataForUserAccount(userAccount: "BlackTweeter")
         }
@@ -210,6 +223,10 @@ class TimelineViewController3: BaseViewController,  UIWebViewDelegate, UIGesture
         }
         let failureHandlerblock: (Error) -> Void = { error in
             print("blocked fail")
+        }
+        
+        if (self.shouldAlwaysCheckBool == true){
+            AppDelegate.didFirstNetworkPull = false
         }
         
         if (AppDelegate.didFirstNetworkPull == false){

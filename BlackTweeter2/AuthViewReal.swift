@@ -90,7 +90,7 @@ class AuthViewReal: UIViewController, SFSafariViewControllerDelegate, LatestCell
     }
     
     override func viewDidLoad() {
-        print("inside viewdidload")
+        print("inside viewdidload of auth")
         if(AppDelegate.objContentHasBeenBlocked == false){//normal (all) content can be seen
             objButton.alpha = 1.0
         }else{
@@ -106,6 +106,9 @@ class AuthViewReal: UIViewController, SFSafariViewControllerDelegate, LatestCell
         }else {
             loginButton.alpha = 1.0
             logoutButton.alpha = 0.3
+        }
+        if (mUserId != nil ){
+            print("auth this is the userid: " + mUserId!)
         }
     }
     

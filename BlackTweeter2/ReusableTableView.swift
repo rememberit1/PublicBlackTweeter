@@ -204,7 +204,7 @@ class ReusableTableView:  NSObject, UITableViewDataSource, UITableViewDelegate, 
             UIApplication.shared.keyWindow?.addSubview(blurEffectView!)
             
             UIView.animate(withDuration: 0.3){
-                self.blurEffectView?.alpha = 0.90
+                self.blurEffectView?.alpha = 0.85
             }
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.bigButtonTapped(gestureRecognizer:)))
             gestureRecognizer.delegate = self

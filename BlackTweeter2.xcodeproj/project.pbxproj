@@ -1166,7 +1166,7 @@
 				);
 				INFOPLIST_FILE = BlackTweeter2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -1191,7 +1191,7 @@
 				);
 				INFOPLIST_FILE = BlackTweeter2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.emberroar.BlackTweeter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlackTweeter2/BlackTweeter2-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

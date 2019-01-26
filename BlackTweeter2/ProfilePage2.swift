@@ -718,7 +718,7 @@ class ProfilePage2: BaseViewController, UIScrollViewDelegate,  UIWebViewDelegate
             blurEffectView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             UIApplication.shared.keyWindow?.addSubview(blurEffectView!)
             UIView.animate(withDuration: 0.3){
-                self.blurEffectView?.alpha = 0.90
+                self.blurEffectView?.alpha = 0.80
             }
             let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.bigButtonTapped(gestureRecognizer:)))
             gestureRecognizer.delegate = self
@@ -950,7 +950,7 @@ extension ProfilePage2: UITableViewDataSource, UITableViewDelegate {
         profileImageHead.alpha = min(percentage , 0.9)
         bio.alpha = percentage
         follow.alpha = percentage
-        lowerBackground.alpha = min(percentage , 0.8)
+        lowerBackground.alpha = min(percentage , 0.85)
     }
     
     func tableView(_ myTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
